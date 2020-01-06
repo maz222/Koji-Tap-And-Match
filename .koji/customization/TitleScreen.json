@@ -1,0 +1,161 @@
+{
+  "titleScreen": {
+    "title": {
+      "content": "Tap & Match",
+      "color": "#f9f9f4"
+    },
+    "description": {
+      "content": "Tap the items from the bottom bar before time runs out.\n\n",
+      "color": "#fbf7f7"
+    },
+    "playButton": {
+      "content": "Play",
+      "color": "#ffffff",
+      "backgroundColor": "#ec8621"
+    },
+    "leaderboardButton": {
+      "content": "Leaderboard",
+      "color": "#ffffff",
+      "backgroundColor": "#2185ec"
+    },
+    "background": {
+      "columnBackground": {
+        "backgroundColor": "#494646"
+      },
+      "mainBackground": {
+        "backgroundColor": "#262525"
+      }
+    }
+  },
+  "@@editor": [
+    {
+      "key": "titleScreen",
+      "name": "Title Screen",
+      "icon": "🎬",
+      "source": "TitleScreen.json",
+      "fields": [
+        {
+          "key": "title",
+          "name": "Title",
+          "type": "object<Text>",
+          "typeOptions": {
+            "Text": {
+              "content": {
+                "name": "Text Content",
+                "type": "text"
+              },
+              "color": {
+                "name": "Text Color",
+                "type": "color"
+              }
+            }
+          }
+        },
+        {
+          "key": "description",
+          "name": "Game Description",
+          "type": "object<Text>",
+          "typeOptions": {
+            "Text": {
+              "content": {
+                "name": "Text Content",
+                "type": "textarea"
+              },
+              "color": {
+                "name": "Text Color",
+                "type": "color"
+              }
+            }
+          }
+        },
+        {
+          "key": "playButton",
+          "name": "Play Button",
+          "type": "object<Button>",
+          "typeOptions": {
+            "Button": {
+              "content": {
+                "name": "Button Text",
+                "type": "text"
+              },
+              "color": {
+                "name": "Text Color",
+                "type": "color"
+              },
+              "backgroundColor": {
+                "name": "Background Color",
+                "type": "color"
+              }
+            }
+          }
+        },
+        {
+          "key": "leaderboardButton",
+          "name": "Leaderboard Button",
+          "type": "object<Button>",
+          "typeOptions": {
+            "Button": {
+              "content": {
+                "name": "Button Text",
+                "type": "text"
+              },
+              "color": {
+                "name": "Text Color",
+                "type": "color"
+              },
+              "backgroundColor": {
+                "name": "Background Color",
+                "type": "color"
+              }
+            }
+          }
+        },
+        {
+          "key": "background",
+          "name": "Title Background",
+          "type": "object<Background>",
+          "typeOptions": {
+            "Background": {
+              "columnBackground": {
+                "name": "Column Background",
+                "description": "The main column (for desktop and tablets) that the game is rendered in.",
+                "type": "object<OptImage>",
+                "typeOptions": {
+                  "OptImage": {
+                    "backgroundImage": {
+                      "name": "Background Image",
+                      "description": "Leave blank to use a solid color instead",
+                      "type": "image"
+                    },
+                    "backgroundColor": {
+                      "name": "Background Color",
+                      "type": "color"
+                    }
+                  }
+                }
+              },
+              "mainBackground": {
+                "name": "Page Background",
+                "description": "The overall background for the page. Only used on desktop and tablets (mobile uses the Column Background)",
+                "type": "object<OptImage>",
+                "typeOptions": {
+                  "OptImage": {
+                    "backgroundImage": {
+                      "name": "Background Image",
+                      "description": "Leave blank to use a solid color instead",
+                      "type": "image"
+                    },
+                    "backgroundColor": {
+                      "name": "Background Color",
+                      "type": "color"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

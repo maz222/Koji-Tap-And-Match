@@ -1,116 +1,191 @@
-let imgBackground;
-let imgCursor;
+let graphics = {};
+let testItem = null;
 
-let sndTap;
+let currentLevel = {};
+let topbar = null;
+let gameGrid = null;
+let bottomBar = null;
+let levelFactory = null;
 
-let score;
+let soundController = null;
+
+let loadCount = 0;
+let loaded = false;
 
 //===This function is called before starting the game
 //Load everything here
 function preload() {
-
-    if (Koji.config.images.background != "") {
-        imgBackground = loadImage(Koji.config.images.background);
+    graphics['items'] = [];
+    for(var i in Koji.config.game.items) {
+        graphics['items'].push(loadImage(Koji.config.game.items[i]));
     }
-
-    imgCursor = loadImage(Koji.config.images.cursor);
-
-    //===Load Sounds here
-    //Include a simple IF check to make sure there is a sound in config, also include a check when you try to play the sound, so in case there isn't one, it will just be ignored instead of crashing the game
-    if (Koji.config.sounds.tap) sndTap = loadSound(Koji.config.sounds.tap);
-
+    let VCC = Koji.config.game;
+    //load topBar
+    if(VCC.topBar.background.backgroundImage !== "" && VCC.topBar.background.backgroundImage !== undefined) {
+        graphics['topBar'] = loadImage(VCC.topBar.background.backgroundImage);
+    }
+    //load grid
+    if(VCC.grid.backgroundImage !== "" && VCC.grid.backgroundImage !== undefined) {
+        graphics['gridBackground'] = loadImage(VCC.grid.backgroundImage);
+    }
+    //load page bg
+    if(VCC.background.mainBackground.backgroundImage !== "" && VCC.background.mainBackground.backgroundImage !== undefined) {
+        graphics['gamePageBackground'] = loadImage(VCC.background.mainBackground.backgroundImage);
+    }
+    //load column bg
+    if(VCC.background.columnBackground.backgroundImage !== "" && VCC.background.columnBackground.backgroundImage !== undefined) {
+        graphics['gameColumnBackground'] = loadImage(VCC.background.columnBackground.backgroundImage);
+    }
+    //load bottom bar
+    if(VCC.bottomBar.backgroundImage !== "" && VCC.bottomBar.backgroundImage !== undefined) {
+        graphics['bottomBar'] = loadImage(VCC.bottomBar.backgroundImage);
+    }
+    //load buttons
+    graphics['backButton'] = loadImage(VCC.topBar.backbutton.image);
+    graphics['soundButton'] = {};
+    graphics['soundButton']['off'] = loadImage(VCC.topBar.soundButton.muteImage);
+    graphics['soundButton']['on'] = loadImage(VCC.topBar.soundButton.unmuteImage);
 }
-
 
 //This function runs once after the app is loaded
 function setup() {
     //Set our canvas size to full window size
     width = window.innerWidth;
     height = window.innerHeight;
-
     createCanvas(width, height);
+    loaded = false;
+    //load sounds
+    VCC = Koji.config.sounds;
+	if(soundController !== null) {
+		soundController.mute();
+	}
+    soundController = new SoundController();
+    //load click
+    if(VCC.itemClick !== "" && VCC.itemClick !== undefined) {
+        soundController.data.sounds[0] = loadSound(VCC.itemClick, () => {loadCount -=1;});
+        loadCount += 1;
+    }
+    //load pass
+    if(VCC.roundPassed !== "" && VCC.roundPassed !== undefined) {
+        soundController.data.sounds[1] = loadSound(VCC.roundPassed, () => {loadCount -=1;});
+        loadCount += 1;
+    }
+    //load fail
+    if(VCC.fail !== "" && VCC.fail !== undefined) {
+        soundController.data.sounds[2] = loadSound(VCC.fail, () => {loadCount -=1;});
+        loadCount += 1;
+    }
+    //load music
+    if(VCC.gameMusic !== "" && VCC.gameMusic !== undefined) {
+        soundController.data.music = loadSound(VCC.gameMusic, () => {loadCount -=1;});
+        loadCount += 1;
+    }
+    
+    let items = [];
+    for(var i in graphics['items']) {
+        items.push(parseInt(i));
+    }
+    let barHeight = height * .1;
+    let gridCols = Koji.config.gameSettings.gridCols;
+    let gridRows = Koji.config.gameSettings.gridRows;
+    levelFactory = new LevelFactory(items,gridRows,gridCols);
+    let level = levelFactory.buildRandomLevel();
+    let maxRound = Koji.config.gameSettings.roundCount;
+    let timer = Koji.config.gameSettings.maxTime;
+    let columnWidth = Math.min(800,width);
+    let columnSpacing = (width - columnWidth)/2;
+    topBar = new TopBar([columnSpacing,0],[columnWidth,height*.1],maxRound,timer);
+    gameGrid = new GameGrid([columnSpacing,barHeight],[columnWidth,height*.8],level,refreshLevel);
+    bottomBar = new BottomBar(level[1],[columnSpacing,height*.9],[columnWidth,height*.1]);
+	//soundController.mute();
+	//soundController.toggleMute();
+}
 
-    score = 0;
+function refreshLevel(passed) {
+    if(passed) {
+        soundController.playSound(1);
+        topBar.currentRound += 1;
+        if(parseInt(topBar.currentRound) > parseInt(Koji.config.gameSettings.roundCount)) {
+			soundController.mute();
+            submitScore(Math.round(topBar.timer*100));
+        }
+    }
+    else {
+        soundController.playSound(2);
+    }
+    width = window.innerWidth;
+    height = window.innerHeight;
+    let barHeight = height * .1;
+    let level = levelFactory.buildRandomLevel();
+    let columnWidth = Math.min(800,width);
+    let columnSpacing = (width - columnWidth)/2;
+    gameGrid = new GameGrid([columnSpacing,barHeight],[columnWidth,height*.8],level,refreshLevel);
+    bottomBar = new BottomBar(level[1],[columnSpacing,height*.9],[columnWidth,height*.1]);
 }
 
 function draw() {
-
-    //Draw background if there is one or a solid color
-    if (imgBackground) {
-        background(imgBackground);
-    } else {
-        background(Koji.config.colors.backgroundColor);
+    textFont('Roboto');
+    if(loadCount > 0) {
+        clear();
+        push();
+        background(20);
+        fill(250);
+        textSize(32);
+        textAlign(CENTER,CENTER);
+        text("Loading...",width/2,height/2);
+        pop();
     }
+    else {
+        if(!loaded) {
+            soundController.mute();
+            soundController.toggleMute();
+            loaded = true;
+        }
+        const VCC = Koji.config.game;
+        clear();
+        //draw page bg
+        push();
+        fill(VCC.background.mainBackground.backgroundColor);
+        rect(0,0,width,height);
+        if('gamePageBackground' in graphics) {
+            let img = graphics['gamePageBackground'];
+            image(img,0,0,width,height);
+        }
+        pop();
+        //draw column bg
+        push();
+        let columnWidth = Math.min(800,width);
+        let columnSpacing = width - columnSpacing / 2;
+        fill(VCC.background.columnBackground.backgroundColor);
+        rect(columnSpacing,0,columnWidth,height);
+        if('gameColumnBackground' in graphics) {
+            let img = graphics['gameColumnBackground'];
+            image(img,columnSpacing,0,columnWidth,height);
+        }
+        pop();
+        topBar.update();
+        topBar.render();
+        gameGrid.render();
+        gameGrid.update();
+        bottomBar.render();
+        bottomBar.update();
+        gameGrid.handleHover()
+        topBar.handleHover();
 
-    image(imgCursor, mouseX, mouseY, 50, 50);
-
-    fill(Koji.config.colors.titleColor);
-    textAlign(CENTER, TOP);
-    textSize(15);
-    text(Koji.config.strings.title, width / 2, 20);
-
-    text("More info in OVERVIEW", width / 2, 70);
-
-	text("Press SPACE to try out the Leaderboard", width / 2, 160);
-
+        if(topBar.timer == 0) {
+            submitScore(0);
+        }
+    }
 }
 
-
-//===Handle mouse/tap input here
-function touchStarted() {
-
-    //Play sound
-    if (sndTap) sndTap.play();
+function mouseReleased() {
+    gameGrid.handleClick();
+    topBar.handleClick();
 }
-
-function touchEnded() {
-
-}
-
-//Keyboard input
-/*
-For non-ASCII keys, use the keyCode variable. You can check if the keyCode equals:
-
-BACKSPACE, DELETE, ENTER, RETURN, TAB, ESCAPE, SHIFT, CONTROL, OPTION, ALT, UP_ARROW, DOWN_ARROW, LEFT_ARROW, RIGHT_ARROW.
-*/
-
-function keyPressed() {
-
-    //Ingame
-    if (keyCode == UP_ARROW) {
-        console.log("up")
-    }
-    if (keyCode == DOWN_ARROW) {
-        console.log("down")
-    }
-    if (keyCode == LEFT_ARROW) {
-        console.log("left")
-    }
-    if (keyCode == RIGHT_ARROW) {
-        console.log("right")
-    }
-
-    if (key == ' ') {
-        console.log("Space")
-        score = 50;
-        submitScore();
-    }
-
-    if (key == 'p') {
-        console.log("Pressed: p")
-    }
-
-}
-
-//Same usage as keyPressed, but is called on key released instead
-function keyReleased() {
-
-}
-
 
 //Takes the player to the "setScore" view for submitting the score to leaderboard
 //Notice that it makes use of the "score" variable. You can change this if you wish.
-function submitScore() {
-    window.setScore(score);
+function submitScore(score) {
+    window.setScore(Math.round(score));
     window.setAppView("setScore");
 }

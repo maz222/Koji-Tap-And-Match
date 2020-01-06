@@ -34,7 +34,8 @@ class SetScore extends Component {
     }
 
     handleSubmit = (e) => {
-        e.preventDefault();
+        console.log("???");
+        //e.preventDefault();
 
         if (this.state.name != "") {
             this.setState({ isSubmitting: true });
@@ -70,13 +71,13 @@ class SetScore extends Component {
 
     render() {
         return (
-            <div style={{ position: "absolute", backgroundColor: Koji.config.colors.backgroundColor, width: "100vw", height: "100vh" }}>
+            <div style={{ position: "absolute", backgroundColor:'green', width: "100vw", height: "100vh" }}>
                 <div className="title"
                     style={{ color: Koji.config.colors.titleColor }}>
                     {"Submit To Leaderboard"}
                 </div>
 
-                <div id={'leaderboard-set-score'} style={{ backgroundColor: Koji.config.colors.backgroundColor, borderColor: Koji.config.colors.titleColor }}>
+                <div id={'leaderboard-set-score'} style={{ backgroundColor: 'red', borderColor: 'black' }}>
                     <form
                         id={'score-form'}
                         onSubmit={this.handleSubmit}

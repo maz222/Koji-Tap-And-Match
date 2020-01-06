@@ -1,6 +1,9 @@
 {
   "sounds": {
-    "tap": "https://objects.koji-cdn.com/b4acde8c-96d4-4b1e-9e6e-4cca208833fe/laser1.mp3"
+    "itemClick": "https://objects.koji-cdn.com/547ac46f-b4d4-4baf-aa12-13d71fe01ad8/7r1nx-Click.mp3",
+    "fail": "https://objects.koji-cdn.com/547ac46f-b4d4-4baf-aa12-13d71fe01ad8/qm48b-Error.mp3",
+    "roundPassed": "",
+    "gameMusic": "https://objects.koji-cdn.com/547ac46f-b4d4-4baf-aa12-13d71fe01ad8/zh18m-music.mp3"
   },
   "@@editor": [
     {
@@ -10,9 +13,27 @@
       "source": "sounds.json",
       "fields": [
         {
-          "key": "tap",
-          "name": "Tap",
-          "description": "Played on tap/click",
+          "key": "itemClick",
+          "name": "Item Click",
+          "description": "Played when selecting an item",
+          "type": "sound"
+        },
+        {
+          "key": "gameMusic",
+          "name": "Game Music",
+          "description": "The background music for the game",
+          "type": "sound"
+        },
+        {
+          "key": "roundPassed",
+          "name": "Round Passed",
+          "description": "Played when you pass a round",
+          "type": "sound"
+        },
+        {
+          "key": "fail",
+          "name": "Failed Round",
+          "description": "Played when you fail a round",
           "type": "sound"
         }
       ]

@@ -1,0 +1,58 @@
+{
+  "gameSettings": {
+    "gridCols": 4,
+    "gridRows": 4,
+    "roundCount": 4,
+    "maxTime": 60
+  },
+  "@@editor": [
+    {
+      "key": "gameSettings",
+      "name": "Game Settings",
+      "icon": "⚙️",
+      "source": "GameSettings.json",
+      "fields": [
+        {
+          "key": "gridCols",
+          "name": "Grid Columns",
+          "description": "How many columns wide the grid is",
+          "type": "range",
+          "typeOptions": {
+            "min": 1,
+            "max": 10
+          }
+        },
+        {
+          "key": "gridRows",
+          "name": "Grid Rows",
+          "description": "How many rows tall the grid is",
+          "type": "range",
+          "typeOptions": {
+            "min": 1,
+            "max": 10
+          }
+        },
+        {
+          "key": "roundCount",
+          "name": "Rounds",
+          "description": "How many rounds for each playthrough",
+          "type": "range",
+          "typeOptions": {
+            "min": 1,
+            "max": 20
+          }
+        },
+        {
+          "key": "maxTime",
+          "name": "Game Length",
+          "description": "How much time (in seconds) the player has",
+          "type": "range",
+          "typeOptions": {
+            "min": 1,
+            "max": 600
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -11,6 +11,13 @@ class GameContainer extends Component {
         //Include all scripts here
         require('script-loader!app/index.js');
 
+        require('script-loader!app/components/BottomBar.js');
+        require('script-loader!app/components/GameGrid.js');
+        require('script-loader!app/components/Item.js');
+        require('script-loader!app/components/GameButtons.js');
+        require('script-loader!app/components/TopBar.js');
+        require('script-loader!app/components/LevelFactory.js');
+        require('script-loader!app/components/SoundController.js');
     }
 
     componentDidMount() {

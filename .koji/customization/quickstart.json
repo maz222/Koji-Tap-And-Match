@@ -1,0 +1,11 @@
+{
+    "quickstart": {
+        "items":[
+          "titleScreen.title",
+          "titleScreen.description",
+          "game.items",
+          "gameSettings.gridCols",
+          "gameSettings.gridRows"
+        ]
+    }
+}

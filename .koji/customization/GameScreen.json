@@ -1,0 +1,224 @@
+{
+  "game": {
+    "items": [
+      "https://images.koji-cdn.com/d4d2aab7-1847-481d-8aa6-6866d81d5e0f/yhbvp-weapon4.png",
+      "https://images.koji-cdn.com/d4d2aab7-1847-481d-8aa6-6866d81d5e0f/9v3y2-food1.png",
+      "https://images.koji-cdn.com/d4d2aab7-1847-481d-8aa6-6866d81d5e0f/kbhwa-bread.png",
+      "https://images.koji-cdn.com/d4d2aab7-1847-481d-8aa6-6866d81d5e0f/n61hz-burger.png",
+      "https://images.koji-cdn.com/d4d2aab7-1847-481d-8aa6-6866d81d5e0f/fw37p-powerupcopy.png"
+    ],
+    "itemHoverColor": "#c8c8c8",
+    "itemSelectedColor": "#35d837",
+    "topBar": {
+      "background": {
+        "backgroundColor": "#505050"
+      },
+      "backbutton": {
+        "backgroundColor": "#ec2121",
+        "image": "https://images.koji-cdn.com/547ac46f-b4d4-4baf-aa12-13d71fe01ad8/nyo19-backButton.png"
+      },
+      "soundButton": {
+        "muteImage": "https://images.koji-cdn.com/547ac46f-b4d4-4baf-aa12-13d71fe01ad8/s6l8f-mute.png",
+        "unmuteImage": "https://images.koji-cdn.com/547ac46f-b4d4-4baf-aa12-13d71fe01ad8/1h5fw-unmute.png",
+        "backgroundColor": "#2186ec"
+      },
+      "roundCounter": "#ffffff",
+      "timer": "#ffffff"
+    },
+    "grid": {
+      "backgroundColor": "#0a0a0a"
+    },
+    "bottomBar": {
+      "backgroundColor": "#505050"
+    },
+    "background": {
+      "columnBackground": {
+        "backgroundColor": "#494646"
+      },
+      "mainBackground": {
+        "backgroundColor": "#262525"
+      }
+    }
+  },
+  "@@editor": [
+    {
+      "key": "game",
+      "name": "Game Screen",
+      "icon": "🎮",
+      "source": "GameScreen.json",
+      "fields": [
+        {
+          "key": "items",
+          "name": "Game Items",
+          "type": "array<image>"
+        },
+        {
+          "key": "topBar",
+          "name": "Top Bar",
+          "type": "object<TopBar>",
+          "typeOptions": {
+            "TopBar": {
+              "background": {
+                "name": "Background",
+                "type": "object<OptImage>",
+                "typeOptions": {
+                  "OptImage": {
+                    "backgroundImage": {
+                      "name": "Background Image",
+                      "description": "Leave blank to use a solid color instead",
+                      "type": "image"
+                    },
+                    "backgroundColor": {
+                      "name": "Background Color",
+                      "type": "color"
+                    }
+                  }
+                }
+              },
+              "backbutton": {
+                "name": "Back Button",
+                "description": "Button for returning to the title screen",
+                "type": "object<BackButton>",
+                "typeOptions": {
+                  "BackButton": {
+                    "image": {
+                      "name": "Button Image",
+                      "type": "image"
+                    },
+                    "backgroundColor": {
+                      "name": "Background Color",
+                      "type": "color"
+                    }
+                  }
+                }
+              },
+              "roundCounter": {
+                "name": "Round Counter Color",
+                "description": "Text color for how many rounds are left",
+                "type": "color"
+              },
+              "timer": {
+                "name": "Timer Color",
+                "description": "Text color for the game timer",
+                "type": "color"
+              },
+              "soundButton": {
+                "name": "Sound Button",
+                "type": "object<SoundButton>",
+                "typeOptions": {
+                  "SoundButton": {
+                    "muteImage": {
+                      "name": "Mute Button Image",
+                      "type": "image"
+                    },
+                    "unmuteImage": {
+                      "name": "Unmute Button Image",
+                      "type": "image"
+                    },
+                    "backgroundColor": {
+                      "name": "Background Color",
+                      "type": "color"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        {
+          "key": "grid",
+          "name": "Item Grid",
+          "type": "object<OptImage>",
+          "typeOptions": {
+            "OptImage": {
+              "backgroundImage": {
+                "name": "Background Image",
+                "description": "Leave blank to use a solid color instead",
+                "type": "image"
+              },
+              "backgroundColor": {
+                "name": "Background Color",
+                "type": "color"
+              }
+            }
+          }
+        },
+        {
+          "key": "itemHoverColor",
+          "name": "Item Hover Color",
+          "description": "The background color for hovered items",
+          "type": "color"
+        },
+        {
+          "key": "itemSelectedColor",
+          "name": "Item Selected Color",
+          "description": "The background color for selected items",
+          "type": "color"
+        },
+        {
+          "key": "bottomBar",
+          "name": "Bottom bar",
+          "type": "object<OptImage>",
+          "typeOptions": {
+            "OptImage": {
+              "backgroundImage": {
+                "name": "Background Image",
+                "description": "Leave blank to use a solid color instead",
+                "type": "image"
+              },
+              "backgroundColor": {
+                "name": "Background Color",
+                "type": "color"
+              }
+            }
+          }
+        },
+        {
+          "key": "background",
+          "name": "Game Background",
+          "type": "object<Background>",
+          "typeOptions": {
+            "Background": {
+              "columnBackground": {
+                "name": "Column Background",
+                "description": "The main column (for desktop and tablets) that the game is rendered in.",
+                "type": "object<OptImage>",
+                "typeOptions": {
+                  "OptImage": {
+                    "backgroundImage": {
+                      "name": "Background Image",
+                      "description": "Leave blank to use a solid color instead",
+                      "type": "image"
+                    },
+                    "backgroundColor": {
+                      "name": "Background Color",
+                      "type": "color"
+                    }
+                  }
+                }
+              },
+              "mainBackground": {
+                "name": "Page Background",
+                "description": "The overall background for the page. Only used on desktop and tablets (mobile uses the Column Background)",
+                "type": "object<OptImage>",
+                "typeOptions": {
+                  "OptImage": {
+                    "backgroundImage": {
+                      "name": "Background Image",
+                      "description": "Leave blank to use a solid color instead",
+                      "type": "image"
+                    },
+                    "backgroundColor": {
+                      "name": "Background Color",
+                      "type": "color"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

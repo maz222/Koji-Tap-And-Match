@@ -21,9 +21,11 @@ class Leaderboard extends Component {
   }
 
   render() {
+    const VCC = Koji.config.leaderboard;
+    console.log(VCC);
     if (this.state.error) {
       return (
-        <div id={'leaderboard'} style={{ backgroundColor: Koji.config.colors.backgroundColor, color: Koji.config.colors.titleColor }}>
+        <div id={'leaderboard'} style={{ backgroundColor: VCC.background.mainBackground.backgroundColor, color:'black' }}>
           <div className={'leaderboard-loading'}>
             <div>{'Error!'}</div>
             <button onClick={() => window.setAppView('game')}>
@@ -36,7 +38,7 @@ class Leaderboard extends Component {
 
     if (!this.state.dataIsLoaded) {
       return (
-        <div id={'leaderboard'} style={{ backgroundColor: Koji.config.colors.backgroundColor }}>
+        <div id={'leaderboard'} style={{ backgroundColor: VCC.background.mainBackground.backgroundColor }}>
           <div className={'leaderboard-loading'}>
             <div style="display: flex; margin-top: 20vh; justify-content: center; text-align: center; animation-name: logo; animation-duration: 2s; animation-iteration-count: infinite; animation-timing-function: ease-out;">
               <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
@@ -47,14 +49,14 @@ class Leaderboard extends Component {
     }
 
     return (
-      <div id={'leaderboard'} style={{ backgroundColor: Koji.config.colors.backgroundColor }}>
+      <div id={'leaderboard'} style={{ backgroundColor: VCC.background.mainBackground.backgroundColor }}>
         <div className={'leaderboard-container'}>
           <div class={'leaderboard-title'}>
-            <div class={'leaderboard-title-text'} style={{ color: Koji.config.colors.titleColor }}>{"Top Scores"}</div>
+            <div class={'leaderboard-title-text'} style={{ color:VCC.title.color }}>{VCC.title.content}</div>
             <div
               class={'leaderboard-close-button'}
-              onClick={() => { window.setAppView('game'); }}
-              style={{ color: Koji.config.colors.titleColor }}
+              onClick={() => { window.setAppView('intro'); }}
+              style={{ color: VCC.title.color }}
             >
               {"Close"}
             </div>
@@ -65,12 +67,12 @@ class Leaderboard extends Component {
                 <div
                   className={'score-row'}
                   key={index}
-                  style={{ backgroundColor: Koji.config.colors.buttonColor }}
+                  style={{ backgroundColor: VCC.scoreEntry.backgroundColor}}
                 >
-                  <div className={'name'} style={{ color: Koji.config.colors.buttonTextColor }}>
+                  <div className={'name'} style={{ color: VCC.scoreEntry.color }}>
                     {`${index + 1}. ${score.name}`}
                   </div>
-                  <div className={'score'} style={{ color: Koji.config.colors.buttonTextColor }}>
+                  <div className={'score'} style={{ color: VCC.scoreEntry.color }}>
                     {score.score}
                   </div>
                 </div>

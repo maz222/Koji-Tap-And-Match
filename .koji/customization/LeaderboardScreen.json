@@ -1,0 +1,109 @@
+{
+  "leaderboard": {
+    "title": {
+      "content": "Leaderboard",
+      "color": "#ffffff"
+    },
+    "scoreEntry": {
+      "backgroundColor": "#166ada",
+      "color": "#f2efef"
+    },
+    "background": {
+      "columnBackground": {
+        "backgroundColor": "#494646"
+      },
+      "mainBackground": {
+        "backgroundColor": "#262525"
+      }
+    }
+  },
+  "@@editor": [
+    {
+      "key": "leaderboard",
+      "name": "Leaderboard Screen",
+      "icon": "📊",
+      "source": "LeaderboardScreen.json",
+      "fields": [
+        {
+          "key": "title",
+          "name": "Title",
+          "type": "object<Text>",
+          "typeOptions": {
+            "Text": {
+              "content": {
+                "name": "Text Content",
+                "type": "text"
+              },
+              "color": {
+                "name": "Text Color",
+                "type": "color"
+              }
+            }
+          }
+        },
+        {
+          "key": "scoreEntry",
+          "name": "Score Entry",
+          "type": "object<Entry>",
+          "typeOptions": {
+            "Entry": {
+              "color": {
+                "name": "Text Color",
+                "type": "color"
+              },
+              "backgroundColor": {
+                "name": "Background Color",
+                "type": "color"
+              }
+            }
+          }
+        },
+        {
+          "key": "background",
+          "name": "Leaderboard Background",
+          "type": "object<Background>",
+          "typeOptions": {
+            "Background": {
+              "columnBackground": {
+                "name": "Column Background",
+                "description": "The main column (for desktop and tablets) that the game is rendered in.",
+                "type": "object<OptImage>",
+                "typeOptions": {
+                  "OptImage": {
+                    "backgroundImage": {
+                      "name": "Background Image",
+                      "description": "Leave blank to use a solid color instead",
+                      "type": "image"
+                    },
+                    "backgroundColor": {
+                      "name": "Background Color",
+                      "type": "color"
+                    }
+                  }
+                }
+              },
+              "mainBackground": {
+                "name": "Page Background",
+                "description": "The overall background for the page. Only used on desktop and tablets (mobile uses the Column Background)",
+                "type": "object<OptImage>",
+                "typeOptions": {
+                  "OptImage": {
+                    "backgroundImage": {
+                      "name": "Background Image",
+                      "description": "Leave blank to use a solid color instead",
+                      "type": "image"
+                    },
+                    "backgroundColor": {
+                      "name": "Background Color",
+                      "type": "color"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

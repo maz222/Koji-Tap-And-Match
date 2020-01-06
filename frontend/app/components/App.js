@@ -1,12 +1,15 @@
 import { h, Component } from 'preact';
 import GameContainer from './GameContainer';
 import Leaderboard from './Leaderboard';
-import SetScore from './SetScore';
+import SetScore from './SetScoreReact.js';
+import IntroScene from './ReactIntro.js';
+
+//import SetScore from './SetScore.js';
 
 export default class App extends Component {
 	state = {
 		score: 0,
-		view: 'game',
+		view: 'intro',
 	};
 
 	componentDidMount() {
@@ -15,6 +18,13 @@ export default class App extends Component {
 	}
 
 	render() {
+		if (this.state.view === 'intro') {
+			return (
+				<div>
+					<IntroScene />
+				</div>
+			)
+		}        
 		if (this.state.view === 'game') {
 			return (
 				<div>

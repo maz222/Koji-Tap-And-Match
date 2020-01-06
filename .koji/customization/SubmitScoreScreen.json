@@ -1,0 +1,167 @@
+{
+  "submitScore": {
+    "title": {
+      "content": "Game Over",
+      "color": "#f2eeee"
+    },
+    "submitButton": {
+      "defaultContent": "Submit ",
+      "activeContent": "Submitting...",
+      "color": "#ffffff",
+      "backgroundColor": "#2185ec"
+    },
+    "nameField": {
+      "content": "(Enter User Name)",
+      "color": "#1c1b1b"
+    },
+    "playAgainButton": {
+      "content": "Play Again",
+      "color": "#ffffff",
+      "backgroundColor": "#ec8621"
+    },
+    "background": {
+      "columnBackground": {
+        "backgroundColor": "#494646"
+      },
+      "mainBackground": {
+        "backgroundColor": "#262525"
+      }
+    }
+  },
+  "@@editor": [
+    {
+      "key": "submitScore",
+      "name": "Game Over Screen",
+      "icon": "🔚",
+      "source": "SubmitScoreScreen.json",
+      "fields": [
+        {
+          "key": "title",
+          "name": "Title",
+          "type": "object<Text>",
+          "typeOptions": {
+            "Text": {
+              "content": {
+                "name": "Text Content",
+                "type": "text"
+              },
+              "color": {
+                "name": "Text Color",
+                "type": "color"
+              }
+            }
+          }
+        },
+        {
+          "key": "nameField",
+          "name": "Enter Name Field",
+          "type": "object<Text>",
+          "typeOptions": {
+            "Text": {
+              "content": {
+                "name": "Text Content",
+                "type": "text"
+              },
+              "color": {
+                "name": "Text Color",
+                "type": "color"
+              }
+            }
+          }
+        },
+        {
+          "key": "submitButton",
+          "name": "Submit Score Button",
+          "type": "object<SubmitButton>",
+          "typeOptions": {
+            "SubmitButton": {
+              "defaultContent": {
+                "name": "Button Text",
+                "type": "text"
+              },
+              "activeContent": {
+                "name": "Active Button Text",
+                "description": "Used after being clicked, while a score is being submitted",
+                "type": "text"
+              },
+              "color": {
+                "name": "Text Color",
+                "type": "color"
+              },
+              "backgroundColor": {
+                "name": "Background Color",
+                "type": "color"
+              }
+            }
+          }
+        },
+        {
+          "key": "playAgainButton",
+          "name": "Play Again Button",
+          "type": "object<Button>",
+          "typeOptions": {
+            "Button": {
+              "content": {
+                "name": "Button Text",
+                "type": "text"
+              },
+              "color": {
+                "name": "Text Color",
+                "type": "color"
+              },
+              "backgroundColor": {
+                "name": "Background Color",
+                "type": "color"
+              }
+            }
+          }
+        },
+        {
+          "key": "background",
+          "name": "Submit Score Background",
+          "type": "object<Background>",
+          "typeOptions": {
+            "Background": {
+              "columnBackground": {
+                "name": "Column Background",
+                "description": "The main column (for desktop and tablets) that the game is rendered in.",
+                "type": "object<OptImage>",
+                "typeOptions": {
+                  "OptImage": {
+                    "backgroundImage": {
+                      "name": "Background Image",
+                      "description": "Leave blank to use a solid color instead",
+                      "type": "image"
+                    },
+                    "backgroundColor": {
+                      "name": "Background Color",
+                      "type": "color"
+                    }
+                  }
+                }
+              },
+              "mainBackground": {
+                "name": "Page Background",
+                "description": "The overall background for the page. Only used on desktop and tablets (mobile uses the Column Background)",
+                "type": "object<OptImage>",
+                "typeOptions": {
+                  "OptImage": {
+                    "backgroundImage": {
+                      "name": "Background Image",
+                      "description": "Leave blank to use a solid color instead",
+                      "type": "image"
+                    },
+                    "backgroundColor": {
+                      "name": "Background Color",
+                      "type": "color"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

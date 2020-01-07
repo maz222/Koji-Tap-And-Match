@@ -113,8 +113,21 @@ class Item {
 			this.state = new ItemHoverState(this);
 		}
 	}
+    spawnParticles() {
+        let particleImage = this.image;
+        let particleRad = this.radius*.5;
+        let particlePos = this.position;
+        let fadeTime = 1;
+        //bottom left particle
+        particleController.addParticle(new Particle(particleImage,particleRad,particlePos,[-4,4],fadeTime));
+        //bottom right particle
+        particleController.addParticle(new Particle(particleImage,particleRad,particlePos,[4,4],fadeTime));
+        //bottom particle
+        particleController.addParticle(new Particle(particleImage,particleRad,particlePos,[0,4],fadeTime));
+    }
 	setClicked() {
         soundController.playSound(0);
+        this.spawnParticles();
 		this.state = new ItemSelectedState(this);
 	}
 	setFail() {

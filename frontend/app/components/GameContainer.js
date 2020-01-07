@@ -18,6 +18,7 @@ class GameContainer extends Component {
         require('script-loader!app/components/TopBar.js');
         require('script-loader!app/components/LevelFactory.js');
         require('script-loader!app/components/SoundController.js');
+        require('script-loader!app/components/Particles.js'); 
     }
 
     componentDidMount() {

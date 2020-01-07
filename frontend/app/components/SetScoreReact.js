@@ -74,6 +74,7 @@ class SetScore extends Component {
         email: '',
         name: Koji.config.submitScore.nameField.content,
         isSubmitting: false,
+        submitted: false
     };
 
     handleClose = () => {
@@ -106,7 +107,9 @@ class SetScore extends Component {
             })
                 .then((response) => response.json())
                 .then((jsonResponse) => {
-                    window.setAppView("leaderboard");
+                    //window.setAppView("leaderboard");
+                    console.log("??");
+                    this.setState({submitted:true, isSubmitting:false});
                 })
                 .catch(err => {
                     console.log(err);
@@ -208,6 +211,13 @@ class SetScore extends Component {
 		hoverColor[2] = Math.max(0,hoverColor[2]-20);
 		let playAgainHoverStyle = {...playAgainStyle, backgroundColor:formatHSL(hoverColor)};
 
+        let submitCallback = this.state.submitted ? () => {window.setAppView("leaderboard")} : this.handleSubmit;
+        let submitContent = this.state.submitted ? Koji.config.titleScreen.leaderboardButton.content : VCC.submitButton.defaultContent;
+        if(!this.state.submitted && this.state.isSubmitting) {
+            console.log(this.state);
+            submitContent = VCC.submitButton.activeContent;
+        }
+
 		return(
 			<div id="leadboard-screen" style={pageStyle}>
 				<div style={columnWrapperStyle}>
@@ -215,7 +225,7 @@ class SetScore extends Component {
 					<div id="submit-sheet" style={submitSheetStyle}>
 						<h1 style={scoreStyle}>{this.props.score}</h1>
 						<input type="text" style={nameStyle} value={this.state.name} onChange={(e) => this.setState({name:e.target.value})}></input>
-						<HoverButton inactiveStyle={submitStyle} activeStyle={submitHoverStyle} onClick={this.handleSubmit} content={this.state.isSubmitting ? VCC.submitButton.activeContent : VCC.submitButton.defaultContent}/>
+						<HoverButton inactiveStyle={submitStyle} activeStyle={submitHoverStyle} onClick={submitCallback} content={submitContent}/>
 					</div>
 					<HoverButton inactiveStyle={playAgainStyle} activeStyle={playAgainHoverStyle} onClick={() => {window.setAppView("game")}} content={VCC.playAgainButton.content}/>
 				</div>

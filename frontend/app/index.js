@@ -8,6 +8,7 @@ let bottomBar = null;
 let levelFactory = null;
 
 let soundController = null;
+let particleController = null;
 
 let loadCount = 0;
 let loaded = false;
@@ -99,6 +100,7 @@ function setup() {
     bottomBar = new BottomBar(level[1],[columnSpacing,height*.9],[columnWidth,height*.1]);
 	//soundController.mute();
 	//soundController.toggleMute();
+    particleController = new ParticlePool();
 }
 
 function refreshLevel(passed) {
@@ -171,7 +173,8 @@ function draw() {
         bottomBar.update();
         gameGrid.handleHover()
         topBar.handleHover();
-
+        particleController.update();
+        particleController.render();
         if(topBar.timer == 0) {
             submitScore(0);
         }

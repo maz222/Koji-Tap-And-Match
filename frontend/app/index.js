@@ -12,6 +12,7 @@ let particleController = null;
 
 let loadCount = 0;
 let loaded = false;
+let shakeCount = 0;
 
 //===This function is called before starting the game
 //Load everything here
@@ -167,8 +168,17 @@ function draw() {
         pop();
         topBar.update();
         topBar.render();
+        push();
+        if(shakeCount > 0) {
+            shakeCount -= 1;
+            let shakeAngle = Math.floor(random(360));
+            let shakeStrength = random(10);
+            angleMode(DEGREES);
+            translate(shakeStrength*sin(shakeAngle),shakeStrength*cos(shakeAngle));
+        }
         gameGrid.render();
         gameGrid.update();
+        pop();
         bottomBar.render();
         bottomBar.update();
         gameGrid.handleHover()

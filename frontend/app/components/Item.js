@@ -116,14 +116,14 @@ class Item {
     spawnParticles() {
         let particleImage = this.image;
         let particleRad = this.radius*.5;
-        let particlePos = this.position;
         let fadeTime = 1;
-        //bottom left particle
-        particleController.addParticle(new Particle(particleImage,particleRad,particlePos,[-4,4],fadeTime));
-        //bottom right particle
-        particleController.addParticle(new Particle(particleImage,particleRad,particlePos,[4,4],fadeTime));
-        //bottom particle
-        particleController.addParticle(new Particle(particleImage,particleRad,particlePos,[0,4],fadeTime));
+		const particleCount = 5;
+		for(var i=0; i<particleCount; i++) {
+			let particlePos = [this.position[0],this.position[1]];
+			let xPos = lerp(-1,1,i/particleCount)*5;
+			let velocity = [xPos,-20];
+			particleController.addParticle(this.itemID,particleRad,particlePos,velocity);
+		}
     }
 	setClicked() {
         soundController.playSound(0);

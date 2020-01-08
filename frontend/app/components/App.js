@@ -9,7 +9,7 @@ import IntroScene from './ReactIntro.js';
 export default class App extends Component {
 	state = {
 		score: 0,
-		view: 'setScore',
+		view: 'intro',
 	};
 
 	componentDidMount() {

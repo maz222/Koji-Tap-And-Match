@@ -50,7 +50,6 @@ function formatHSL(hslArray) {
 
 class TopBar {
 	constructor(pxOrigin,pxDimensions,maxRounds,maxTimer) {
-        console.log(graphics);
         const VCC = Koji.config.game;
 		this.currentRound = 1;
 		this.maxRounds = maxRounds;
@@ -60,19 +59,18 @@ class TopBar {
 		this.dimensions = pxDimensions;
 		let buttonDimensions = [this.dimensions[1]*.6, this.dimensions[1]*.6];
 		let backOrigin = [this.origin[0]+buttonDimensions[0]*.25,this.origin[1]+this.dimensions[1]*.2];
-    let backColor = VCC.topBar.backbutton.backgroundColor;
-    let backHoverColor = hexToHSL(backColor);
-    backHoverColor[2] = Math.max(0,backHoverColor[2] - 20);
-    backHoverColor = formatHSL(backHoverColor);
+        let backColor = VCC.topBar.backbutton.backgroundColor;
+        let backHoverColor = hexToHSL(backColor);
+        backHoverColor[2] = Math.max(0,backHoverColor[2] - 20);
+        backHoverColor = formatHSL(backHoverColor);
 		this.backButton = new BackButton(backOrigin,buttonDimensions,{image:graphics['backButton'],backgroundColor:backColor},{image:graphics['backButton'],backgroundColor:backHoverColor});
 		let soundOrigin = [this.origin[0]+this.dimensions[0]-buttonDimensions[0]-buttonDimensions[0]*.25,this.origin[1]+this.dimensions[1]*.2];
-    let soundColor = VCC.topBar.soundButton.backgroundColor;
-    let soundHoverColor = hexToHSL(soundColor);
-    soundHoverColor[2] = Math.max(0,soundHoverColor[2] - 20);
-    soundHoverColor = formatHSL(soundHoverColor);
-    console.log(soundColor);
+        let soundColor = VCC.topBar.soundButton.backgroundColor;
+        let soundHoverColor = hexToHSL(soundColor);
+        soundHoverColor[2] = Math.max(0,soundHoverColor[2] - 20);
+        soundHoverColor = formatHSL(soundHoverColor);
 		this.soundButton = new SoundButton(soundOrigin,buttonDimensions,{image:graphics['soundButton']['off'],backgroundColor:soundColor},{image:graphics['soundButton']['on'],backgroundColor:soundHoverColor});
-	}
+    }
 	update() {
 		if(frameRate() > 1) {
 			this.timer = Math.max(0,this.timer - 1/frameRate());
@@ -82,7 +80,7 @@ class TopBar {
 		push();
 		stroke(0);
 		strokeWeight(this.strokeSize);
-    fill(Koji.config.game.topBar.background.backgroundColor);
+        fill(Koji.config.game.topBar.background.backgroundColor);
 		rect(this.origin[0]+this.strokeSize,this.origin[1]+this.strokeSize,this.dimensions[0]-this.strokeSize*2,this.dimensions[1]-this.strokeSize*2);
 		if('topBar' in graphics) {
 			let img = graphics['topBar'];
@@ -108,7 +106,7 @@ class TopBar {
 	}
 	renderTimer() {
 		push();
-    textSize(32);	
+        textSize(32);	
 		textAlign(CENTER,CENTER);
 		fill(Koji.config.game.topBar.timer);
 		let buttonSpacing = this.dimensions[1]*.6 + this.dimensions[1]*.6*.5;

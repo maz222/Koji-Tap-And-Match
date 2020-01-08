@@ -136,7 +136,7 @@ class SetScore extends Component {
 			display:'flex',
 			flexDirection: 'column',
 			alignItems:'center',
-			justifyContent:'space-around',
+			//justifyContent:'space-around',
 			backgroundColor:VCC.background.columnBackground.backgroundColor,
 			width:columnWidth,
 		};
@@ -147,10 +147,11 @@ class SetScore extends Component {
 		let bannerStyle = {
 			color:VCC.title.color,
 			textAlign:'center',
-			fontSize:4 + "em",
+			fontSize:3 + "em",
 			width:'calc(100% - 40px)',
 			padding:'20px',
-			borderRadius:'5px'
+			borderRadius:'5px',
+			marginTop:"20px",
 		};
 
 		let submitSheetStyle = {
@@ -161,16 +162,17 @@ class SetScore extends Component {
 			backgroundColor:'rgb(245,245,245)',
 			borderRadius:'5px',
 			width:'90%',
-			padding:"40px 0 40px 0"
+			padding:"40px 0 40px 0",
+			marginTop:"20px"
 		};
 
 		let scoreStyle = {
-			fontSize:'3em',
+			fontSize:'2em',
 			marginBottom:'20px'
 		};
 
 		let nameStyle = {
-			fontSize:'1.5em',
+			fontSize:'1em',
 			borderRadius:'10px',
 			textAlign:'center',
 			padding:'10px',
@@ -183,7 +185,7 @@ class SetScore extends Component {
 
 		let submitStyle = {
 			padding:'20px',
-			fontSize:2 + 'em',
+			fontSize:1 + 'em',
 			border:"1px solid rgba(0,0,0,.25)",
 			borderRadius:'10px',
 			color:VCC.submitButton.color,
@@ -197,10 +199,10 @@ class SetScore extends Component {
 		let playWidth = columnWidth * .9 *.8 - 40;
 		let playAgainStyle = {
 			padding:'20px',
-			fontSize:2 + 'em',
+			fontSize:1 + 'em',
 			backgroundColor:VCC.playAgainButton.backgroundColor,
 			color:VCC.playAgainButton.color,
-			marginTop:'50px',
+			marginTop:'20px',
 			border:0,
 			borderRadius:'10px',
 			boxShadow:'0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23)',
@@ -222,12 +224,12 @@ class SetScore extends Component {
 			<div id="leadboard-screen" style={pageStyle}>
 				<div style={columnWrapperStyle}>
 					<h1 style={bannerStyle}>{VCC.title.content}</h1>
-					<div id="submit-sheet" style={submitSheetStyle}>
-						<h1 style={scoreStyle}>{this.props.score}</h1>
-						<input type="text" style={nameStyle} value={this.state.name} onChange={(e) => this.setState({name:e.target.value})}></input>
-						<HoverButton inactiveStyle={submitStyle} activeStyle={submitHoverStyle} onClick={submitCallback} content={submitContent}/>
-					</div>
-					<HoverButton inactiveStyle={playAgainStyle} activeStyle={playAgainHoverStyle} onClick={() => {window.setAppView("game")}} content={VCC.playAgainButton.content}/>
+						<div id="submit-sheet" style={submitSheetStyle}>
+							<h1 style={scoreStyle}>{this.props.score}</h1>
+							<input type="text" style={nameStyle} value={this.state.name} onChange={(e) => this.setState({name:e.target.value})}></input>
+							<HoverButton inactiveStyle={submitStyle} activeStyle={submitHoverStyle} onClick={submitCallback} content={submitContent}/>
+						</div>
+						<HoverButton inactiveStyle={playAgainStyle} activeStyle={playAgainHoverStyle} onClick={() => {window.setAppView("game")}} content={VCC.playAgainButton.content}/>
 				</div>
 			</div>
 		);

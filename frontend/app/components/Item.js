@@ -117,11 +117,14 @@ class Item {
         let particleImage = this.image;
         let particleRad = this.radius*.5;
         let fadeTime = 1;
-		const particleCount = 5;
+		const particleCount = 3;
+        const minHeight = -15;
+        const maxHeight = -20;
 		for(var i=0; i<particleCount; i++) {
 			let particlePos = [this.position[0],this.position[1]];
-			let xPos = lerp(-1,1,i/particleCount)*5;
-			let velocity = [xPos,-20];
+			let xPos = lerp(-5,10,i/particleCount);
+            let yPos = lerp(minHeight,maxHeight,i/particleCount);
+			let velocity = [xPos,yPos];
 			particleController.addParticle(this.itemID,particleRad,particlePos,velocity);
 		}
     }

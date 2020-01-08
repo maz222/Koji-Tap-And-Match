@@ -17,72 +17,77 @@ let shakeCount = 0;
 //===This function is called before starting the game
 //Load everything here
 function preload() {
-    graphics['items'] = [];
-    for(var i in Koji.config.game.items) {
-        graphics['items'].push(loadImage(Koji.config.game.items[i]));
+	loaded = false;
+    if(loaded === false) {
+        console.log("preload");
+        graphics['items'] = [];
+        for(var i in Koji.config.game.items) {
+            graphics['items'].push(loadImage(Koji.config.game.items[i]));
+        }
+        let VCC = Koji.config.game;
+        //load topBar
+        if(VCC.topBar.background.backgroundImage !== "" && VCC.topBar.background.backgroundImage !== undefined) {
+            graphics['topBar'] = loadImage(VCC.topBar.background.backgroundImage);
+        }
+        //load grid
+        if(VCC.grid.backgroundImage !== "" && VCC.grid.backgroundImage !== undefined) {
+            graphics['gridBackground'] = loadImage(VCC.grid.backgroundImage);
+        }
+        //load page bg
+        if(VCC.background.mainBackground.backgroundImage !== "" && VCC.background.mainBackground.backgroundImage !== undefined) {
+            graphics['gamePageBackground'] = loadImage(VCC.background.mainBackground.backgroundImage);
+        }
+        //load column bg
+        if(VCC.background.columnBackground.backgroundImage !== "" && VCC.background.columnBackground.backgroundImage !== undefined) {
+            graphics['gameColumnBackground'] = loadImage(VCC.background.columnBackground.backgroundImage);
+        }
+        //load bottom bar
+        if(VCC.bottomBar.backgroundImage !== "" && VCC.bottomBar.backgroundImage !== undefined) {
+            graphics['bottomBar'] = loadImage(VCC.bottomBar.backgroundImage);
+        }
+        //load buttons
+        graphics['backButton'] = loadImage(VCC.topBar.backbutton.image);
+        graphics['soundButton'] = {};
+        graphics['soundButton']['off'] = loadImage(VCC.topBar.soundButton.muteImage);
+        graphics['soundButton']['on'] = loadImage(VCC.topBar.soundButton.unmuteImage);
     }
-    let VCC = Koji.config.game;
-    //load topBar
-    if(VCC.topBar.background.backgroundImage !== "" && VCC.topBar.background.backgroundImage !== undefined) {
-        graphics['topBar'] = loadImage(VCC.topBar.background.backgroundImage);
-    }
-    //load grid
-    if(VCC.grid.backgroundImage !== "" && VCC.grid.backgroundImage !== undefined) {
-        graphics['gridBackground'] = loadImage(VCC.grid.backgroundImage);
-    }
-    //load page bg
-    if(VCC.background.mainBackground.backgroundImage !== "" && VCC.background.mainBackground.backgroundImage !== undefined) {
-        graphics['gamePageBackground'] = loadImage(VCC.background.mainBackground.backgroundImage);
-    }
-    //load column bg
-    if(VCC.background.columnBackground.backgroundImage !== "" && VCC.background.columnBackground.backgroundImage !== undefined) {
-        graphics['gameColumnBackground'] = loadImage(VCC.background.columnBackground.backgroundImage);
-    }
-    //load bottom bar
-    if(VCC.bottomBar.backgroundImage !== "" && VCC.bottomBar.backgroundImage !== undefined) {
-        graphics['bottomBar'] = loadImage(VCC.bottomBar.backgroundImage);
-    }
-    //load buttons
-    graphics['backButton'] = loadImage(VCC.topBar.backbutton.image);
-    graphics['soundButton'] = {};
-    graphics['soundButton']['off'] = loadImage(VCC.topBar.soundButton.muteImage);
-    graphics['soundButton']['on'] = loadImage(VCC.topBar.soundButton.unmuteImage);
 }
 
 //This function runs once after the app is loaded
 function setup() {
+    console.log("setup");
     //Set our canvas size to full window size
     width = window.innerWidth;
     height = window.innerHeight;
     createCanvas(width, height);
-    loaded = false;
-    //load sounds
-    VCC = Koji.config.sounds;
-	if(soundController !== null) {
-		soundController.mute();
-	}
-    soundController = new SoundController();
-    //load click
-    if(VCC.itemClick !== "" && VCC.itemClick !== undefined) {
-        soundController.data.sounds[0] = loadSound(VCC.itemClick, () => {loadCount -=1;});
-        loadCount += 1;
-    }
-    //load pass
-    if(VCC.roundPassed !== "" && VCC.roundPassed !== undefined) {
-        soundController.data.sounds[1] = loadSound(VCC.roundPassed, () => {loadCount -=1;});
-        loadCount += 1;
-    }
-    //load fail
-    if(VCC.fail !== "" && VCC.fail !== undefined) {
-        soundController.data.sounds[2] = loadSound(VCC.fail, () => {loadCount -=1;});
-        loadCount += 1;
-    }
-    //load music
-    if(VCC.gameMusic !== "" && VCC.gameMusic !== undefined) {
-        soundController.data.music = loadSound(VCC.gameMusic, () => {loadCount -=1;});
-        loadCount += 1;
-    }
-    
+    if(!loaded) {
+        //load sounds
+        VCC = Koji.config.sounds;
+        if(soundController !== null) {
+            soundController.mute();
+        }
+        soundController = new SoundController();
+        //load click
+        if(VCC.itemClick !== "" && VCC.itemClick !== undefined) {
+            soundController.data.sounds[0] = loadSound(VCC.itemClick, () => {loadCount -=1;});
+            loadCount += 1;
+        }
+        //load pass
+        if(VCC.roundPassed !== "" && VCC.roundPassed !== undefined) {
+            soundController.data.sounds[1] = loadSound(VCC.roundPassed, () => {loadCount -=1;});
+            loadCount += 1;
+        }
+        //load fail
+        if(VCC.fail !== "" && VCC.fail !== undefined) {
+            soundController.data.sounds[2] = loadSound(VCC.fail, () => {loadCount -=1;});
+            loadCount += 1;
+        }
+        //load music
+        if(VCC.gameMusic !== "" && VCC.gameMusic !== undefined) {
+            soundController.data.music = loadSound(VCC.gameMusic, () => {loadCount -=1;});
+            loadCount += 1;
+        }
+    }    
     let items = [];
     for(var i in graphics['items']) {
         items.push(parseInt(i));

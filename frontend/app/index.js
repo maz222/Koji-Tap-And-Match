@@ -1,7 +1,9 @@
 let graphics = {};
 let testItem = null;
 
-let currentLevel = {};
+let levels = [];
+
+let currentLevel = 0;
 let topbar = null;
 let gameGrid = null;
 let bottomBar = null;
@@ -17,12 +19,13 @@ let shakeCount = 0;
 //===This function is called before starting the game
 //Load everything here
 function preload() {
-	loaded = false;
+    levels = Koji.config.gameSettings.levels;
+    loaded = false;
     if(loaded === false) {
         console.log("preload");
         graphics['items'] = [];
-        for(var i in Koji.config.game.items) {
-            graphics['items'].push(loadImage(Koji.config.game.items[i]));
+        for(var i in Koji.config.gameSettings.itemPool) {
+            graphics['items'].push(loadImage(Koji.config.gameSettings.itemPool[i]));
         }
         let VCC = Koji.config.game;
         //load topBar
@@ -56,6 +59,7 @@ function preload() {
 //This function runs once after the app is loaded
 function setup() {
     console.log("setup");
+    currentLevel = 0;
     //Set our canvas size to full window size
     width = window.innerWidth;
     height = window.innerHeight;
@@ -87,34 +91,44 @@ function setup() {
             soundController.data.music = loadSound(VCC.gameMusic, () => {loadCount -=1;});
             loadCount += 1;
         }
+        console.log("sounds pushed");
     }    
     let items = [];
     for(var i in graphics['items']) {
         items.push(parseInt(i));
     }
     let barHeight = height * .1;
-    let gridCols = Koji.config.gameSettings.gridCols;
-    let gridRows = Koji.config.gameSettings.gridRows;
-    levelFactory = new LevelFactory(items,gridRows,gridCols);
-    let level = levelFactory.buildRandomLevel();
-    let maxRound = Koji.config.gameSettings.roundCount;
+    levelFactory = new LevelFactory(items);
+    let level = buildLevelFromVCC(levels[currentLevel]);
     let timer = Koji.config.gameSettings.maxTime;
     let columnWidth = Math.min(800,width);
     let columnSpacing = (width - columnWidth)/2;
-    topBar = new TopBar([columnSpacing,0],[columnWidth,height*.1],maxRound,timer);
+    topBar = new TopBar([columnSpacing,0],[columnWidth,height*.1],levels.length,timer);
     gameGrid = new GameGrid([columnSpacing,barHeight],[columnWidth,height*.8],level,refreshLevel);
     bottomBar = new BottomBar(level[1],[columnSpacing,height*.9],[columnWidth,height*.1]);
-	//soundController.mute();
-	//soundController.toggleMute();
+    //soundController.mute();
+    //soundController.toggleMute();
     particleController = new ParticlePool();
+}
+
+function buildLevelFromVCC(VCCData) {
+    const def = Koji.config.gameSettings;
+    const rows = VCCData.gridRows === "" || VCCData.gridRows === undefined ? def.defaultGridRows : parseInt(VCCData.gridRows);
+    const columns = VCCData.gridColumns === "" || VCCData.gridColumns === undefined ? def.defaultGridCols : parseInt(VCCData.gridColumns);
+    const targetItemsCount = VCCData.targetItems === "" || VCCData.targetItems === undefined ? 0 : parseInt(VCCData.targetItems);
+    const fillerItemsCount = VCCData.itemPool === "" || VCCData.itemPool === undefined ? 0 : parseInt(VCCData.itemPool);
+    console.log([rows,columns,targetItemsCount,fillerItemsCount]);
+    let level = levelFactory.buildRandomLevel(rows,columns,targetItemsCount,fillerItemsCount);
+    return level;
 }
 
 function refreshLevel(passed) {
     if(passed) {
         soundController.playSound(1);
         topBar.currentRound += 1;
-        if(parseInt(topBar.currentRound) > parseInt(Koji.config.gameSettings.roundCount)) {
-			soundController.mute();
+        currentLevel += 1;
+        if(parseInt(topBar.currentRound) > levels.length) {
+            soundController.mute();
             submitScore(Math.round(topBar.timer*100));
         }
     }
@@ -124,7 +138,7 @@ function refreshLevel(passed) {
     width = window.innerWidth;
     height = window.innerHeight;
     let barHeight = height * .1;
-    let level = levelFactory.buildRandomLevel();
+    let level = buildLevelFromVCC(levels[currentLevel]);
     let columnWidth = Math.min(800,width);
     let columnSpacing = (width - columnWidth)/2;
     gameGrid = new GameGrid([columnSpacing,barHeight],[columnWidth,height*.8],level,refreshLevel);

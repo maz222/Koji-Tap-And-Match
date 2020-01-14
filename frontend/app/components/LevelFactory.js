@@ -1,14 +1,13 @@
 class LevelFactory {
-	constructor(items,gridRows,gridColumns) {
+	constructor(items) {
 		this.items = items;
-		this.gridRows = gridRows;
-		this.gridColumns = gridColumns;
 	}
-	getTargetItems(items=this.items,count=0) {
+	getTargetItems(gridRows,gridColumns,count=0) {
+		let items = this.items;
 		if(count === 0) {
 			count = Math.max(Math.round(Math.random() * items.length),1);
 		}
-		count = Math.min(count,this.gridColumns*this.gridRows);
+		count = Math.min(count,items.length);
 		let itemsCopy = items.slice();
 		let targetItems = [];
 		while(count > 0) {
@@ -17,22 +16,46 @@ class LevelFactory {
 			itemsCopy.splice(index,1);
 			count -= 1;
 		}
-		return targetItems;
+		return [targetItems,itemsCopy];
 	}
-	buildEmptyLevel() {
+	getFillerItems(gridRows,gridColumns,items,targetItems,count=0) {
+		if(count === 0) {
+			return [targetItems,[]];
+		}
+		count = Math.min(count,gridRows*gridColumns-targetItems.length);
+		count = Math.min(count, items.length);
+		let itemsCopy = items.slice();
+		let fillerItems = [];
+		while(count > 0) {
+			let index = Math.floor(Math.random()*itemsCopy.length);
+			fillerItems.push(itemsCopy[index]);
+			itemsCopy.splice(index,1);
+			count -= 1;
+		}
+		return [targetItems,fillerItems];
+	}
+	buildEmptyLevel(gridRows,gridColumns) {
 		let level = [];
-		for(var i=0; i<this.gridRows;i++) {
+		for(var i=0; i<gridRows;i++) {
 			let t = [];
-			for(var j=0; j<this.gridColumns; j++) {
-				t.push(undefined);
+			for(var j=0; j<gridColumns; j++) {
+				t.push(-1);
 			}
 			level.push(t);
 		}
 		return level;
 	}
-	buildRandomLevel(items=this.items,count=0) {
-		let targetItems = this.getTargetItems(items,count);
-		return this.buildLevel(items,targetItems);
+	buildRandomLevel(gridRows,gridColumns,targetCount=0,fillerCount=0) {
+		let items = this.getTargetItems(gridRows,gridColumns,targetCount);
+        console.log(items);
+        console.log("targets fetched");
+		items = this.getFillerItems(gridRows,gridColumns,items[1],items[0],fillerCount);
+        console.log("fillers fetched");
+        console.log(items);
+		let targetItems = items[0];
+		let fillerItems = items[1];
+		return this.buildLevel(gridRows,gridColumns,fillerItems,targetItems);
+        //return null;
 	}
 	flattenIndex(row,column,grid) {
 		return row * grid[0].length + column;
@@ -40,22 +63,24 @@ class LevelFactory {
 	unflattenIndex(flatIndex,grid) {
 		return [Math.floor(flatIndex/grid[0].length),flatIndex%grid[0].length];
 	}
-	buildLevel(items, targetItems) {
+	buildLevel(gridRows,gridColumns,fillerItems,targetItems) {
 		//get empty level
-		let level = this.buildEmptyLevel();
+		let level = this.buildEmptyLevel(gridRows,gridColumns);
+        console.log("**");
 		//determing how many of each target item you can have
-		let maxGroupSize = Math.floor((level[0].length * level.length) / targetItems.length);
+		let maxGroupSize = Math.floor((gridColumns * gridRows) / (targetItems.length + fillerItems.length));
 		let cells = [];
 		for(var i=0; i<level.length; i++) {
 			for(var j=0; j<level[0].length; j++) {
 				cells.push(this.flattenIndex(i,j,level));
 			}
 		}
+        console.log("--");
 		let groupSizes = {};
 		//for each target item, assign random cells to its value
 		for(var i in targetItems) {
-			let count = Math.max(Math.floor(Math.random() * maxGroupSize),1);
-			groupSizes[i] = count;
+			let count = Math.max(Math.floor(Math.random() * maxGroupSize),maxGroupSize*.8);
+			groupSizes[targetItems[i]] = count;
 			while(count > 0) {
 				let randIndex = Math.floor(Math.random() * cells.length);
 				let levelIndex = this.unflattenIndex(cells[randIndex],level);
@@ -64,22 +89,26 @@ class LevelFactory {
 				count -= 1;
 			}
 		}
+        console.log(level);
+        level = level.slice();
+        console.log("----");
+        console.log(level);
 		//fill out the rest of the level
+        if(fillerItems.length === 0) {
+            fillerItems = targetItems;
+        }
+        let fillerCopy = fillerItems.slice();
 		for(var i in cells) {
 			let levelIndex = this.unflattenIndex(cells[i],level);
 			//get a random item and place it
-			let itemIndex = Math.floor(Math.random() * items.length);
-			while(itemIndex in groupSizes && groupSizes[itemIndex] >= maxGroupSize * 2) {
-				itemIndex = Math.floor(Math.random() * items.length);
-			}
-			level[levelIndex[0]][levelIndex[1]] = itemIndex;
-			if(itemIndex in groupSizes) {
-				groupSizes[itemIndex] += 1;
-			}
-			else {
-				groupSizes[itemIndex] = 1;
-			}
+			let itemIndex = Math.floor(Math.random() * fillerCopy.length);
+			level[levelIndex[0]][levelIndex[1]] = fillerCopy[itemIndex];
+            fillerCopy.splice(itemIndex,1);
+            if(fillerCopy.length === 0) {
+                fillerCopy = fillerItems.slice();
+            }
 		}
+        console.log("level built?");
 		return [level,targetItems];
 	}
 }

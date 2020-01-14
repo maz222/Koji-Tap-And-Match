@@ -1,12 +1,5 @@
 {
   "game": {
-    "items": [
-      "https://images.koji-cdn.com/d4d2aab7-1847-481d-8aa6-6866d81d5e0f/yhbvp-weapon4.png",
-      "https://images.koji-cdn.com/d4d2aab7-1847-481d-8aa6-6866d81d5e0f/9v3y2-food1.png",
-      "https://images.koji-cdn.com/d4d2aab7-1847-481d-8aa6-6866d81d5e0f/kbhwa-bread.png",
-      "https://images.koji-cdn.com/d4d2aab7-1847-481d-8aa6-6866d81d5e0f/n61hz-burger.png",
-      "https://images.koji-cdn.com/d4d2aab7-1847-481d-8aa6-6866d81d5e0f/fw37p-powerupcopy.png"
-    ],
     "itemHoverColor": "#c8c8c8",
     "itemSelectedColor": "#35d837",
     "topBar": {
@@ -47,11 +40,6 @@
       "icon": "🎮",
       "source": "GameScreen.json",
       "fields": [
-        {
-          "key": "items",
-          "name": "Game Items",
-          "type": "array<image>"
-        },
         {
           "key": "topBar",
           "name": "Top Bar",

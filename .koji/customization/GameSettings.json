@@ -1,21 +1,49 @@
 {
   "gameSettings": {
-    "gridCols": 4,
-    "gridRows": 4,
-    "roundCount": 4,
-    "maxTime": 60
+    "defaultGridCols": 4,
+    "defaultGridRows": 4,
+    "itemPool": [
+      "https://images.koji-cdn.com/d4d2aab7-1847-481d-8aa6-6866d81d5e0f/yhbvp-weapon4.png",
+      "https://images.koji-cdn.com/d4d2aab7-1847-481d-8aa6-6866d81d5e0f/9v3y2-food1.png",
+      "https://images.koji-cdn.com/d4d2aab7-1847-481d-8aa6-6866d81d5e0f/kbhwa-bread.png",
+      "https://images.koji-cdn.com/d4d2aab7-1847-481d-8aa6-6866d81d5e0f/n61hz-burger.png",
+      "https://images.koji-cdn.com/d4d2aab7-1847-481d-8aa6-6866d81d5e0f/fw37p-powerupcopy.png"
+    ],
+    "maxTime": 60,
+    "levels": [
+      {
+        "gridRows": 4,
+        "gridColumns": 4,
+        "targetItems": 1,
+        "itemPool": 1
+      },
+      {
+        "targetItems": 3,
+        "itemPool": 2
+      },
+      {
+        "gridRows": 5,
+        "gridColumns": 5,
+        "targetItems": 2,
+        "itemPool": 1
+      },
+      {
+        "gridRows": 5,
+        "gridColumns": 5
+      }
+    ]
   },
   "@@editor": [
     {
       "key": "gameSettings",
       "name": "Game Settings",
       "icon": "⚙️",
-      "source": "GameSettings.json",
+      "source": "gameSettings.json",
       "fields": [
         {
-          "key": "gridCols",
-          "name": "Grid Columns",
-          "description": "How many columns wide the grid is",
+          "key": "defaultGridCols",
+          "name": "Default Grid Columns",
+          "description": "How many columns wide the grid is by default",
           "type": "range",
           "typeOptions": {
             "min": 1,
@@ -23,9 +51,9 @@
           }
         },
         {
-          "key": "gridRows",
-          "name": "Grid Rows",
-          "description": "How many rows tall the grid is",
+          "key": "defaultGridRows",
+          "name": "Default Grid Rows",
+          "description": "How many rows tall the grid is by default",
           "type": "range",
           "typeOptions": {
             "min": 1,
@@ -33,14 +61,10 @@
           }
         },
         {
-          "key": "roundCount",
-          "name": "Rounds",
-          "description": "How many rounds for each playthrough",
-          "type": "range",
-          "typeOptions": {
-            "min": 1,
-            "max": 20
-          }
+          "key": "itemPool",
+          "name": "Game Items",
+          "type": "array<image>",
+          "description": "The pool of items used for levels"
         },
         {
           "key": "maxTime",
@@ -50,6 +74,52 @@
           "typeOptions": {
             "min": 1,
             "max": 600
+          }
+        },
+        {
+          "key": "levels",
+          "name": "Game Levels",
+          "description": "The levels used in your game",
+          "type": "array<object<Level>>",
+          "typeOptions": {
+            "Level": {
+              "gridRows": {
+                "name": "Grid Rows",
+                "description": "How many rows tall the grid is",
+                "type": "range",
+                "typeOptions": {
+                  "min": 1,
+                  "max": 10
+                }
+              },
+              "gridColumns": {
+                "name": "Grid Columns",
+                "description": "How many columns wide the grid is",
+                "type": "range",
+                "typeOptions": {
+                  "min": 1,
+                  "max": 10
+                }
+              },
+              "targetItems": {
+                "name": "Target Items",
+                "description": "The number of item types you want the player to match. Set to 0 to use a random value.",
+                "type": "range",
+                "typeOptions": {
+                  "min": 0,
+                  "max": 100
+                }
+              },
+              "itemPool": {
+                "name": "Filler Items",
+                "description": "The number of item types that are used to fill out the the grid besides the target items. If 0, the grid will be full of target items instead.",
+                "type": "range",
+                "typeOptions": {
+                  "min": 0,
+                  "max": 100
+                }
+              }
+            }
           }
         }
       ]

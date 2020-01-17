@@ -135,7 +135,7 @@ class Item {
 	}
 	setFail() {
 		this.state = new ItemFailState(this);
-        shakeCount = 5;
+        shakeCount = Koji.config.gameSettings.itemShake.shakeCount;
 	}
 	checkHover() {
 		if(mouseX >= this.position[0]-this.padding && mouseX <= this.position[0]+this.radius*2+this.padding) {

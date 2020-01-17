@@ -14,9 +14,27 @@ class GridBaseState {
 		}
 		return this;
 	}
+    renderBackground() {
+        push();
+        strokeWeight(0);
+		fill(Koji.config.game.grid.backgroundColor);
+		rect(this.grid.pxOrigin[0],this.grid.pxOrigin[1],this.grid.pxWidth,this.grid.pxHeight);
+		if('gridBackground' in graphics) {
+			let img = graphics['gridBackground'];
+			image(img,this.grid.pxOrigin[0],this.grid.pxOrigin[1],this.grid.pxWidth,this.grid.pxHeight);
+		}
+		pop();    
+    }
+    renderItems() {
+		for(var i=0; i<this.grid.grid.length; i++) {
+			for(var j=0; j<this.grid.grid[i].length; j++) {
+				this.grid.grid[i][j].render();
+			}
+		}        
+    }
 	render() {
 		push();
-    strokeWeight(0);
+        strokeWeight(0);
 		fill(Koji.config.game.grid.backgroundColor);
 		rect(this.grid.pxOrigin[0],this.grid.pxOrigin[1],this.grid.pxWidth,this.grid.pxHeight);
 		if('gridBackground' in graphics) {
@@ -103,6 +121,10 @@ class GridFailState extends GridBaseState {
 		}
 		return this;
 	}
+    renderItems() {
+        super.renderItems();
+        this.grid.grid[this.failCell[0]][this.failCell[1]].render()
+    }
 	render() {
 		super.render();
 		this.grid.grid[this.failCell[0]][this.failCell[1]].render();
@@ -193,7 +215,13 @@ class GameGrid {
 	handleClick() {
 		this.state.handleClick();
 	}
+    renderBackground() {
+        this.state.renderBackground();
+    }
+    renderItems() {
+        this.state.renderItems();
+    }
 	render() {
-		this.state.render();
+		this.state.render(offset);
 	}
 }

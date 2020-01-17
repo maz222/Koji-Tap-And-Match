@@ -53,7 +53,7 @@
                   "OptImage": {
                     "backgroundImage": {
                       "name": "Background Image",
-                      "description": "Leave blank to use a solid color instead",
+                      "description": "Leave blank to use a solid color instead. (800 x 100 recommended size)",
                       "type": "image"
                     },
                     "backgroundColor": {
@@ -71,6 +71,7 @@
                   "BackButton": {
                     "image": {
                       "name": "Button Image",
+                      "description": "(30 x 30 recommended size)",
                       "type": "image"
                     },
                     "backgroundColor": {
@@ -97,10 +98,12 @@
                   "SoundButton": {
                     "muteImage": {
                       "name": "Mute Button Image",
+                      "description":"(30 x 30 recommended size)",
                       "type": "image"
                     },
                     "unmuteImage": {
                       "name": "Unmute Button Image",
+                      "description":"(30 x 30 recommended size)",
                       "type": "image"
                     },
                     "backgroundColor": {
@@ -121,7 +124,7 @@
             "OptImage": {
               "backgroundImage": {
                 "name": "Background Image",
-                "description": "Leave blank to use a solid color instead",
+                "description": "Leave blank to use a solid color instead. (600 x 800 recommended size)",
                 "type": "image"
               },
               "backgroundColor": {
@@ -151,7 +154,7 @@
             "OptImage": {
               "backgroundImage": {
                 "name": "Background Image",
-                "description": "Leave blank to use a solid color instead",
+                "description": "Leave blank to use a solid color instead. (800 x 100 recommended size)",
                 "type": "image"
               },
               "backgroundColor": {
@@ -175,7 +178,7 @@
                   "OptImage": {
                     "backgroundImage": {
                       "name": "Background Image",
-                      "description": "Leave blank to use a solid color instead",
+                      "description": "Leave blank to use a solid color instead. (800 x 1080 recommended size)",
                       "type": "image"
                     },
                     "backgroundColor": {
@@ -193,7 +196,7 @@
                   "OptImage": {
                     "backgroundImage": {
                       "name": "Background Image",
-                      "description": "Leave blank to use a solid color instead",
+                      "description": "Leave blank to use a solid color instead (1920 x 1080 recomended size)",
                       "type": "image"
                     },
                     "backgroundColor": {

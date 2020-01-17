@@ -31,7 +31,12 @@
         "gridRows": 5,
         "gridColumns": 5
       }
-    ]
+    ],
+    "itemShake": {
+      "shakeCount": 3,
+      "minShake": 10,
+      "maxShake": 30
+    }
   },
   "@@editor": [
     {
@@ -64,7 +69,7 @@
           "key": "itemPool",
           "name": "Game Items",
           "type": "array<image>",
-          "description": "The pool of items used for levels"
+          "description": "The pool of items used for levels. (50 x 50 recommended size for each image)"
         },
         {
           "key": "maxTime",
@@ -74,6 +79,43 @@
           "typeOptions": {
             "min": 1,
             "max": 600
+          }
+        },
+        {
+          "key": "itemShake",
+          "name": "Error Shake",
+          "description": "The error animation for when a incorrect item is selected. Each shake offsets an item by a random amount of pixels.",
+          "type": "object<Effect>",
+          "typeOptions": {
+            "Effect": {
+              "shakeCount": {
+                "name": "Shake Count",
+                "description": "How many shakes occur.",
+                "type": "range",
+                "typeOptions": {
+                  "min": 0,
+                  "max": 100
+                }
+              },
+              "minShake": {
+                "name": "Minimum Shake Strength",
+                "description": "The minimum number of pixels a shake will offset an item by",
+                "type": "range",
+                "typeOptions": {
+                  "min": 1,
+                  "max": 300
+                }
+              },
+              "maxShake": {
+                "name": "Maximum Shake Strength",
+                "description": "The maximum number of pixels a shake will ofset an item by",
+                "type": "range",
+                "typeOptions": {
+                  "min": 1,
+                  "max": 300
+                }
+              }
+            }
           }
         },
         {

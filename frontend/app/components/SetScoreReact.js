@@ -3,6 +3,9 @@ import PropTypes from 'prop-types';
 import Koji from '@withkoji/vcc';
 import md5 from 'md5';
 
+const DEFAULT_USER_FIELD = Koji.config.submitScore.nameField.content;
+const DEFAULT_USER_EMAIL = "(Enter User Email [Private])";
+
 function hexToHSL(H) {
     // Convert hex to RGB first
     let r = 0, g = 0, b = 0;
@@ -71,8 +74,9 @@ class SetScore extends Component {
     };
 
     state = {
-        email: '',
-        name: Koji.config.submitScore.nameField.content,
+        email: DEFAULT_USER_EMAIL,
+        name: DEFAULT_USER_FIELD,
+		emailOptIn: false,
         isSubmitting: false,
         submitted: false
     };
@@ -216,9 +220,27 @@ class SetScore extends Component {
         let submitCallback = this.state.submitted ? () => {window.setAppView("leaderboard")} : this.handleSubmit;
         let submitContent = this.state.submitted ? Koji.config.titleScreen.leaderboardButton.content : VCC.submitButton.defaultContent;
         if(!this.state.submitted && this.state.isSubmitting) {
-            console.log(this.state);
             submitContent = VCC.submitButton.activeContent;
         }
+
+		let submitInactiveStyle = {
+			marginTop:'20px',
+			padding:'20px',
+			fontSize:1 + 'em',
+			border:"1px solid rgba(0,0,0,.25)",
+			borderRadius:'10px',
+			color:'rgb(40,40,40)',
+			backgroundColor:'rgb(200,200,200)',
+			width:"calc(80% - 40px)",
+			textAlign:'center'
+		}
+		let submitButton = this.state.name === DEFAULT_USER_FIELD || this.state.name === "" ? <div style={submitInactiveStyle}>Submit</div> : <HoverButton inactiveStyle={submitStyle} activeStyle={submitHoverStyle} onClick={submitCallback} content={submitContent}/>;
+
+        //<input type="text" style={{...nameStyle, border:'3px solid rgb(80,80,80)'}} value={this.state.email} onChange={(e) => this.setState({email:e.target.value})}></input>
+	    //<div style={{display:'flex',alignItems:'center',margin:0}}>
+			//<input style={{marginRight:'5px', width:'20px', height:'20px'}} type="checkbox" checked={this.state.emailOptIn} 
+				//onChange={(e) => {this.setState({emailOptIn:e.target.checked})}}/><p>{"Opt in for email"}</p>
+		//</div>
 
 		return(
 			<div id="leadboard-screen" style={pageStyle}>
@@ -226,8 +248,8 @@ class SetScore extends Component {
 					<h1 style={bannerStyle}>{VCC.title.content}</h1>
 						<div id="submit-sheet" style={submitSheetStyle}>
 							<h1 style={scoreStyle}>{this.props.score}</h1>
-							<input type="text" style={nameStyle} value={this.state.name} onChange={(e) => this.setState({name:e.target.value})}></input>
-							<HoverButton inactiveStyle={submitStyle} activeStyle={submitHoverStyle} onClick={submitCallback} content={submitContent}/>
+							<input type="text" style={nameStyle} value={this.state.name} onClick={(e) => this.setState({name:""})} onChange={(e) => this.setState({name:e.target.value})}></input>
+							{submitButton}
 						</div>
 						<HoverButton inactiveStyle={playAgainStyle} activeStyle={playAgainHoverStyle} onClick={() => {window.setAppView("game")}} content={VCC.playAgainButton.content}/>
 				</div>

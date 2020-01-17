@@ -124,7 +124,7 @@
                   "OptImage": {
                     "backgroundImage": {
                       "name": "Background Image",
-                      "description": "Leave blank to use a solid color instead",
+                      "description": "Leave blank to use a solid color instead. (800 x 1080 recommended size)",
                       "type": "image"
                     },
                     "backgroundColor": {
@@ -142,7 +142,7 @@
                   "OptImage": {
                     "backgroundImage": {
                       "name": "Background Image",
-                      "description": "Leave blank to use a solid color instead",
+                      "description": "Leave blank to use a solid color instead. (1920 x 1080 recommended size)",
                       "type": "image"
                     },
                     "backgroundColor": {

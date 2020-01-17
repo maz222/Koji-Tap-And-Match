@@ -15,6 +15,7 @@ export default class App extends Component {
 	componentDidMount() {
 		window.setAppView = view => { this.setState({ view }); }
 		window.setScore = score => { this.setState({ score }); }
+        sessionStorage.setItem('isMuted',false);
 	}
 
 	render() {

@@ -139,12 +139,12 @@ class IntroScreen extends Component {
         leaderboardHSL[2] = Math.max(0,leaderboardHSL[2]-20);
         let leaderboardButtonHoverStyle = {...leaderboardButtonStyle, backgroundColor:formatHSL(leaderboardHSL)};
         let leaderboardCallback = () => {window.setAppView('leaderboard');}
-
+        let description = VCC.description.content.trim().length > 0 ? <p style={descriptionStyle}>{VCC.description.content}</p> : null;
         return(
             <div id="page" style={pageStyle}>
                 <div style={columnStyle}>
                     <h1 style={titleStyle}>{VCC.title.content}</h1>
-                    <p style={descriptionStyle}>{VCC.description.content}</p>
+                    {description}
                     <HoverButton activeStyle={playButtonHoverStyle} inactiveStyle={playButtonStyle} content={VCC.playButton.content} onClick={playCallback}/>
                     <HoverButton activeStyle={leaderboardButtonHoverStyle} inactiveStyle={leaderboardButtonStyle} content={VCC.leaderboardButton.content} onClick={leaderboardCallback}/>
                 </div>

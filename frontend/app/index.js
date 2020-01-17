@@ -160,7 +160,9 @@ function draw() {
     else {
         if(!loaded) {
             soundController.mute();
-            soundController.toggleMute();
+            if(!JSON.parse(sessionStorage.getItem('isMuted'))) {
+                soundController.toggleMute();
+            }
             loaded = true;
         }
         const VCC = Koji.config.game;
@@ -187,15 +189,18 @@ function draw() {
         pop();
         topBar.update();
         topBar.render();
+        gameGrid.renderBackground();
         push();
         if(shakeCount > 0) {
+            const shakeVCC = Koji.config.gameSettings.itemShake;
             shakeCount -= 1;
             let shakeAngle = Math.floor(random(360));
-            let shakeStrength = random(10);
+            let shakeStrength = random() * (shakeVCC.maxShake - shakeVCC.minShake);
+			shakeStrength += shakeVCC.minShake;
             angleMode(DEGREES);
             translate(shakeStrength*sin(shakeAngle),shakeStrength*cos(shakeAngle));
         }
-        gameGrid.render();
+        gameGrid.renderItems();
         gameGrid.update();
         pop();
         bottomBar.render();

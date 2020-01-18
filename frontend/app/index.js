@@ -109,6 +109,7 @@ function setup() {
     //soundController.mute();
     //soundController.toggleMute();
     particleController = new ParticlePool();
+    console.log("end setup");
 }
 
 function buildLevelFromVCC(VCCData) {
@@ -119,10 +120,12 @@ function buildLevelFromVCC(VCCData) {
     const fillerItemsCount = VCCData.itemPool === "" || VCCData.itemPool === undefined ? 0 : parseInt(VCCData.itemPool);
     console.log([rows,columns,targetItemsCount,fillerItemsCount]);
     let level = levelFactory.buildRandomLevel(rows,columns,targetItemsCount,fillerItemsCount);
+    console.log("got level");
     return level;
 }
 
 function refreshLevel(passed) {
+    console.log("refreshing");
     if(passed) {
         soundController.playSound(1);
         topBar.currentRound += 1;

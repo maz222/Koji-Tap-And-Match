@@ -38,7 +38,9 @@ class ItemSpawnState extends ItemBaseState {
 		translate(newPosition[0],newPosition[1]);
 		//rotate(360*timeFactor);
 		fill(255,0,0);
-		image(this.item.image,0,0,newRadius*2,newRadius*2);
+        if(newRadius > 0) {
+		    image(this.item.image,0,0,newRadius*2,newRadius*2);
+        }
 		//rect(0,0,newRadius*2,newRadius*2);
 		pop();
 	}
@@ -97,13 +99,14 @@ class ItemFailState extends ItemBaseState {
 }
 
 class Item {
-	constructor(image,itemID,position,radius,padding,spawnTime=2) {
+	constructor(image,itemID,position,radius,padding,spawnTime) {
 		this.image = image;
 		this.itemID = itemID;
 		this.position = position;
 		this.radius = radius;
 		this.padding = padding;
 		this.state = new ItemSpawnState(this,spawnTime);
+		//this.state = new ItemBaseState(this);
 	}
 	setBase() {
 		this.state = new ItemBaseState(this);

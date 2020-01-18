@@ -1,4 +1,4 @@
-var spawnTimer = .5;
+var spawnTimer = .25;
 var failBlinkTimer = .25;
 var failBlinkCount = 1;
 
@@ -155,7 +155,6 @@ class GameGrid {
 		this.activeCells = new Set([]);
 		this.state = null;
 		this.loadItems();
-		console.log(level);
 	}
 	copyGrid(grid) {
 		for(var i=0; i< grid.length; i++) {
@@ -166,6 +165,7 @@ class GameGrid {
 		}
 	}
 	loadItems() {
+        console.log("loading items");
 		let pxBound = Math.min(this.pxWidth,this.pxHeight);
 		let cellBound = Math.max(this.columns,this.rows);
 		let cellRad = pxBound / cellBound / 2;

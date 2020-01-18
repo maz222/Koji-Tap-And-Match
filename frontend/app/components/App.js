@@ -16,6 +16,7 @@ export default class App extends Component {
 		window.setAppView = view => { this.setState({ view }); }
 		window.setScore = score => { this.setState({ score }); }
         sessionStorage.setItem('isMuted',false);
+        sessionStorage.setItem('userName','');
 	}
 
 	render() {

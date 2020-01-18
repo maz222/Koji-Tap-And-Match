@@ -57,7 +57,6 @@ class SoundButton extends HoverButton {
 		fill(info.backgroundColor);
 		rect(this.origin[0],this.origin[1],this.dimensions[0],this.dimensions[1],5);
         info = !(JSON.parse(sessionStorage.getItem('isMuted'))) ? this.hoverInfo : this.defaultInfo;
-        console.log(sessionStorage.getItem('isMuted'));
 		image(info.image,this.origin[0]+padding/2,this.origin[1]+padding/2,this.dimensions[0]-padding,this.dimensions[1]-padding);
 		pop(); 
     }

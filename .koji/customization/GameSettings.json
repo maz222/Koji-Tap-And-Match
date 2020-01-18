@@ -12,8 +12,8 @@
     "maxTime": 60,
     "levels": [
       {
-        "gridRows": 4,
-        "gridColumns": 4,
+        "gridRows": 1,
+        "gridColumns": 1,
         "targetItems": 1,
         "itemPool": 1
       },

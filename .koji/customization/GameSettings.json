@@ -12,10 +12,10 @@
     "maxTime": 60,
     "levels": [
       {
-        "gridRows": 1,
-        "gridColumns": 1,
+        "gridRows": 3,
+        "gridColumns": 3,
         "targetItems": 1,
-        "itemPool": 1
+        "itemPool": 0
       },
       {
         "targetItems": 3,

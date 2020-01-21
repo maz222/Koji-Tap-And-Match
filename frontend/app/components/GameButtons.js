@@ -48,6 +48,7 @@ class BackButton extends HoverButton {
 class SoundButton extends HoverButton {
     constructor(origin,dimensions,defaultInfo,hoverInfo) {
         super(origin,dimensions,defaultInfo,hoverInfo);
+        this.enabled = true;
     }
     render() {
        	let padding = Math.min(this.dimensions[0] * .5, this.dimensions[1] * .5);
@@ -56,7 +57,7 @@ class SoundButton extends HoverButton {
         stroke('rgba(0,0,0,.25)');
 		fill(info.backgroundColor);
 		rect(this.origin[0],this.origin[1],this.dimensions[0],this.dimensions[1],5);
-        info = !(JSON.parse(sessionStorage.getItem('isMuted'))) ? this.hoverInfo : this.defaultInfo;
+        info = this.enabled ? this.hoverInfo : this.defaultInfo;
 		image(info.image,this.origin[0]+padding/2,this.origin[1]+padding/2,this.dimensions[0]-padding,this.dimensions[1]-padding);
 		pop(); 
     }
@@ -64,8 +65,9 @@ class SoundButton extends HoverButton {
         console.log("sound clicked");
 		if(this.hovered) {
 			soundController.toggleMute();
-			let t = JSON.parse(sessionStorage.getItem('isMuted'));
-			sessionStorage.setItem('isMuted',!t);
+			//let t = JSON.parse(sessionStorage.getItem('isMuted'));
+			//sessionStorage.setItem('isMuted',!t);
+            this.enabled = !this.enabled;
 		}
 	}
 }

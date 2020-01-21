@@ -163,9 +163,9 @@ function draw() {
     else {
         if(!loaded) {
             soundController.mute();
-            if(!JSON.parse(sessionStorage.getItem('isMuted'))) {
-                soundController.toggleMute();
-            }
+            //if(!JSON.parse(sessionStorage.getItem('isMuted'))) {
+            soundController.toggleMute();
+            //}
             loaded = true;
         }
         const VCC = Koji.config.game;

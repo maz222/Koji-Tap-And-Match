@@ -75,7 +75,7 @@ class SetScore extends Component {
 
     state = {
         email: DEFAULT_USER_EMAIL,
-        name: sessionStorage.getItem('userName') == '' ? DEFAULT_USER_FIELD : sessionStorage.getItem('userName'),
+        name:  DEFAULT_USER_FIELD,
 		emailOptIn: false,
         isSubmitting: false,
         submitted: false
@@ -87,7 +87,7 @@ class SetScore extends Component {
 
     handleSubmit = (e) => {
         e.preventDefault();
-        sessionStorage.setItem('userName',this.state.name);
+        //sessionStorage.setItem('userName',this.state.name);
         if (this.state.name != "") {
             this.setState({ isSubmitting: true });
 

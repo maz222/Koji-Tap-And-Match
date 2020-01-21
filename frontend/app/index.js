@@ -131,7 +131,7 @@ function refreshLevel(passed) {
         topBar.currentRound += 1;
         currentLevel += 1;
         if(parseInt(topBar.currentRound) > levels.length) {
-            soundController.mute();
+            //soundController.mute();
             submitScore(Math.round(topBar.timer*100));
         }
     }

@@ -218,9 +218,11 @@ function draw() {
     }
 }
 
-function mouseReleased() {
+function touchEnded() {
     gameGrid.handleClick();
     topBar.handleClick();
+    mouseX = -100;
+    mouseY = -100;
 }
 
 //Takes the player to the "setScore" view for submitting the score to leaderboard

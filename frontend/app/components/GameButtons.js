@@ -48,7 +48,7 @@ class BackButton extends HoverButton {
 class SoundButton extends HoverButton {
     constructor(origin,dimensions,defaultInfo,hoverInfo) {
         super(origin,dimensions,defaultInfo,hoverInfo);
-        this.enabled = true;
+        this.enabled = false;
     }
     render() {
        	let padding = Math.min(this.dimensions[0] * .5, this.dimensions[1] * .5);

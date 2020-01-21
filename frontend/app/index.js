@@ -20,41 +20,38 @@ let shakeCount = 0;
 //Load everything here
 function preload() {
     levels = Koji.config.gameSettings.levels;
-    loaded = false;
-    if(loaded === false) {
-        console.log("preload");
-        graphics['items'] = [];
-        for(var i in Koji.config.gameSettings.itemPool) {
-            graphics['items'].push(loadImage(Koji.config.gameSettings.itemPool[i]));
-        }
-        let VCC = Koji.config.game;
-        //load topBar
-        if(VCC.topBar.background.backgroundImage !== "" && VCC.topBar.background.backgroundImage !== undefined) {
-            graphics['topBar'] = loadImage(VCC.topBar.background.backgroundImage);
-        }
-        //load grid
-        if(VCC.grid.backgroundImage !== "" && VCC.grid.backgroundImage !== undefined) {
-            graphics['gridBackground'] = loadImage(VCC.grid.backgroundImage);
-        }
-        //load page bg
-        if(VCC.background.mainBackground.backgroundImage !== "" && VCC.background.mainBackground.backgroundImage !== undefined) {
-            graphics['gamePageBackground'] = loadImage(VCC.background.mainBackground.backgroundImage);
-        }
-        //load column bg
-        if(VCC.background.columnBackground.backgroundImage !== "" && VCC.background.columnBackground.backgroundImage !== undefined) {
-            graphics['gameColumnBackground'] = loadImage(VCC.background.columnBackground.backgroundImage);
-        }
-        //load bottom bar
-        if(VCC.bottomBar.backgroundImage !== "" && VCC.bottomBar.backgroundImage !== undefined) {
-            graphics['bottomBar'] = loadImage(VCC.bottomBar.backgroundImage);
-        }
-        //load buttons
-        graphics['backButton'] = loadImage(VCC.topBar.backbutton.image);
-        graphics['soundButton'] = {};
-        graphics['soundButton']['off'] = loadImage(VCC.topBar.soundButton.muteImage);
-        graphics['soundButton']['on'] = loadImage(VCC.topBar.soundButton.unmuteImage);
-        soundController = null;
+    console.log("preload");
+    graphics['items'] = [];
+    for(var i in Koji.config.gameSettings.itemPool) {
+        graphics['items'].push(loadImage(Koji.config.gameSettings.itemPool[i]));
     }
+    let VCC = Koji.config.game;
+    //load topBar
+    if(VCC.topBar.background.backgroundImage !== "" && VCC.topBar.background.backgroundImage !== undefined) {
+        graphics['topBar'] = loadImage(VCC.topBar.background.backgroundImage);
+    }
+    //load grid
+    if(VCC.grid.backgroundImage !== "" && VCC.grid.backgroundImage !== undefined) {
+        graphics['gridBackground'] = loadImage(VCC.grid.backgroundImage);
+    }
+    //load page bg
+    if(VCC.background.mainBackground.backgroundImage !== "" && VCC.background.mainBackground.backgroundImage !== undefined) {
+        graphics['gamePageBackground'] = loadImage(VCC.background.mainBackground.backgroundImage);
+    }
+    //load column bg
+    if(VCC.background.columnBackground.backgroundImage !== "" && VCC.background.columnBackground.backgroundImage !== undefined) {
+        graphics['gameColumnBackground'] = loadImage(VCC.background.columnBackground.backgroundImage);
+    }
+    //load bottom bar
+    if(VCC.bottomBar.backgroundImage !== "" && VCC.bottomBar.backgroundImage !== undefined) {
+        graphics['bottomBar'] = loadImage(VCC.bottomBar.backgroundImage);
+    }
+    //load buttons
+    graphics['backButton'] = loadImage(VCC.topBar.backbutton.image);
+    graphics['soundButton'] = {};
+    graphics['soundButton']['off'] = loadImage(VCC.topBar.soundButton.muteImage);
+    graphics['soundButton']['on'] = loadImage(VCC.topBar.soundButton.unmuteImage);
+    soundController = null;
 }
 
 //This function runs once after the app is loaded
@@ -65,6 +62,7 @@ function setup() {
     width = window.innerWidth;
     height = window.innerHeight;
     createCanvas(width, height);
+    loaded = false;
     if(!loaded) {
         //load sounds
         VCC = Koji.config.sounds;
@@ -162,13 +160,13 @@ function draw() {
         pop();
     }
     else {
-        if(!loaded) {
-            soundController.mute();
+        //if(!loaded) {
+            //soundController.mute();
             //if(!JSON.parse(sessionStorage.getItem('isMuted'))) {
-            soundController.toggleMute();
+            //soundController.toggleMute();
             //}
-            loaded = true;
-        }
+            //loaded = true;
+        //}
         const VCC = Koji.config.game;
         clear();
         //draw page bg

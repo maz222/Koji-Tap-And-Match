@@ -53,6 +53,7 @@ function preload() {
         graphics['soundButton'] = {};
         graphics['soundButton']['off'] = loadImage(VCC.topBar.soundButton.muteImage);
         graphics['soundButton']['on'] = loadImage(VCC.topBar.soundButton.unmuteImage);
+        soundController = null;
     }
 }
 

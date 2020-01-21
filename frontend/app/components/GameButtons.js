@@ -62,7 +62,6 @@ class SoundButton extends HoverButton {
 		pop(); 
     }
 	handleClick() {
-        console.log("sound clicked");
 		if(this.hovered) {
 			soundController.toggleMute();
 			//let t = JSON.parse(sessionStorage.getItem('isMuted'));

@@ -261,7 +261,7 @@ class SetScore extends Component {
 				<div style={columnWrapperStyle}>
 					<h1 style={bannerStyle}>{VCC.title.content}</h1>
 						{this.state.submitted ? tDiv : form}
-						<HoverButton inactiveStyle={playAgainStyle} activeStyle={playAgainHoverStyle} onClick={() => {window.setAppView("game")}} content={VCC.playAgainButton.content}/>
+						<HoverButton inactiveStyle={playAgainStyle} activeStyle={playAgainHoverStyle} onClick={() => {console.log("new game"); window.setAppView("game");}} content={VCC.playAgainButton.content}/>
 				</div>
 			</div>
 		);

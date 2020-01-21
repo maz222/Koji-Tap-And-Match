@@ -86,7 +86,7 @@ class SetScore extends Component {
     }
 
     handleSubmit = (e) => {
-        //e.preventDefault();
+        e.preventDefault();
         sessionStorage.setItem('userName',this.state.name);
         if (this.state.name != "") {
             this.setState({ isSubmitting: true });
@@ -95,7 +95,7 @@ class SetScore extends Component {
                 name: this.state.name,
                 score: this.props.score,
                 privateAttributes: {
-                    email: this.state.email,
+                    email: this.state.email === DEFAULT_USER_EMAIL ? null : this.state.email,
                     optIn: this.state.optIn,
                 },
             };
@@ -112,7 +112,7 @@ class SetScore extends Component {
                 .then((response) => response.json())
                 .then((jsonResponse) => {
                     //window.setAppView("leaderboard");
-                    console.log("??");
+                    console.log(this.state.name);
                     this.setState({submitted:true, isSubmitting:false});
                 })
                 .catch(err => {
@@ -188,6 +188,7 @@ class SetScore extends Component {
 		}
 
 		let submitStyle = {
+            marginTop:'20px',
 			padding:'20px',
 			fontSize:1 + 'em',
 			border:"1px solid rgba(0,0,0,.25)",
@@ -234,23 +235,32 @@ class SetScore extends Component {
 			width:"calc(80% - 40px)",
 			textAlign:'center'
 		}
-		let submitButton = this.state.name === DEFAULT_USER_FIELD || this.state.name === "" ? <div style={submitInactiveStyle}>Submit</div> : <HoverButton inactiveStyle={submitStyle} activeStyle={submitHoverStyle} onClick={submitCallback} content={submitContent}/>;
-
+		let submitButton = this.state.name === DEFAULT_USER_FIELD || this.state.name === "" ? <button type="submit" style={submitInactiveStyle} onSubmit={this.handleSubmit}>Submit</button> : <HoverButton inactiveStyle={submitStyle} activeStyle={submitHoverStyle} onClick={() => {window.setAppView("leaderboard")}} content={submitContent}/>;
+        //let submitButton = <button type="submit" style={submitInactiveStyle} onSubmit={this.handleSubmit}>Submit</button>;
+        //let submitButton = <HoverButton inactiveStyle={submitStyle} activeStyle={submitHoverStyle} content={submitContent} onSubmit={submitCallback}/>;
         //<input type="text" style={{...nameStyle, border:'3px solid rgb(80,80,80)'}} value={this.state.email} onChange={(e) => this.setState({email:e.target.value})}></input>
 	    //<div style={{display:'flex',alignItems:'center',margin:0}}>
 			//<input style={{marginRight:'5px', width:'20px', height:'20px'}} type="checkbox" checked={this.state.emailOptIn} 
 				//onChange={(e) => {this.setState({emailOptIn:e.target.checked})}}/><p>{"Opt in for email"}</p>
 		//</div>
-
+        let subStyle = this.state.name === DEFAULT_USER_FIELD || this.state.name === "" ? submitInactiveStyle : submitStyle;
+		let form = 
+			<form style={submitSheetStyle} onSubmit={this.handleSubmit}>
+				<h1 style={scoreStyle}>{this.props.score}</h1>
+				<input type="text" style={nameStyle} value={this.state.name} onClick={(e) => this.setState({name:""})} onChange={(e) => {this.setState({name:e.target.value})}} onKeyPress={(e) => this.setState({name:e.target.value})}></input>
+				<button type="submit" style={subStyle} onSubmit={this.handleSubmit}>{"Submit"}</button>
+			</form>
+        let tDiv = 
+            <div style={submitSheetStyle}>
+                <h1 style = {scoreStyle}>{this.props.score}</h1>
+                <h2 style={{...nameStyle, backgroundColor:'rgb(200,200,200', border:"1px solid rgba(0,0,0,.25"}}>{this.state.name}</h2>
+                <HoverButton inactiveStyle={submitStyle} activeStyle={submitHoverStyle} onClick={() => {window.setAppView("leaderboard")}} content={submitContent}/>
+            </div>
 		return(
 			<div id="leadboard-screen" style={pageStyle}>
 				<div style={columnWrapperStyle}>
 					<h1 style={bannerStyle}>{VCC.title.content}</h1>
-						<div id="submit-sheet" style={submitSheetStyle}>
-							<h1 style={scoreStyle}>{this.props.score}</h1>
-							<input type="text" style={nameStyle} value={this.state.name} onClick={(e) => this.setState({name:""})} onChange={(e) => this.setState({name:e.target.value})}></input>
-							{submitButton}
-						</div>
+						{this.state.submitted ? tDiv : form}
 						<HoverButton inactiveStyle={playAgainStyle} activeStyle={playAgainHoverStyle} onClick={() => {window.setAppView("game")}} content={VCC.playAgainButton.content}/>
 				</div>
 			</div>

@@ -2,22 +2,29 @@
   "submitScore": {
     "title": {
       "content": "Game Over",
-      "color": "#f2eeee"
+      "color": "#ffffff"
+    },
+    "emailField": {
+      "content": "Email (Optional)"
+    },
+    "optIn": {
+      "content": "Contact me via email"
     },
     "submitButton": {
-      "defaultContent": "Submit ",
-      "activeContent": "Submitting...",
+      "defaultContent": "Submit Score",
+      "activeContent": "Submitting Score...",
       "color": "#ffffff",
       "backgroundColor": "#2185ec"
-    },
-    "nameField": {
-      "content": "(Enter User Name)",
-      "color": "#1c1b1b"
     },
     "playAgainButton": {
       "content": "Play Again",
       "color": "#ffffff",
       "backgroundColor": "#ec8621"
+    },
+    "leaderboardButton": {
+      "content": "Leaderboard",
+      "color": "#ffffff",
+      "backgroundColor": "#2185ec"
     },
     "background": {
       "columnBackground": {
@@ -26,6 +33,9 @@
       "mainBackground": {
         "backgroundColor": "#262525"
       }
+    },
+    "nameField": {
+      "content": "Username"
     }
   },
   "@@editor": [
@@ -54,17 +64,39 @@
         },
         {
           "key": "nameField",
-          "name": "Enter Name Field",
+          "name": "Enter Name Label",
           "type": "object<Text>",
           "typeOptions": {
             "Text": {
               "content": {
                 "name": "Text Content",
                 "type": "text"
-              },
-              "color": {
-                "name": "Text Color",
-                "type": "color"
+              }
+            }
+          }
+        },
+        {
+          "key": "emailField",
+          "name": "Enter Email Label",
+          "type": "object<Text>",
+          "typeOptions": {
+            "Text": {
+              "content": {
+                "name": "Text Content",
+                "type": "text"
+              }
+            }
+          }
+        },
+        {
+          "key": "optIn",
+          "name": "Email Opt in Label",
+          "type": "object<Text>",
+          "typeOptions": {
+            "Text": {
+              "content": {
+                "name": "Text Content",
+                "type": "text"
               }
             }
           }
@@ -98,6 +130,27 @@
         {
           "key": "playAgainButton",
           "name": "Play Again Button",
+          "type": "object<Button>",
+          "typeOptions": {
+            "Button": {
+              "content": {
+                "name": "Button Text",
+                "type": "text"
+              },
+              "color": {
+                "name": "Text Color",
+                "type": "color"
+              },
+              "backgroundColor": {
+                "name": "Background Color",
+                "type": "color"
+              }
+            }
+          }
+        },
+        {
+          "key": "leaderboardButton",
+          "name": "Leaderboard Button",
           "type": "object<Button>",
           "typeOptions": {
             "Button": {

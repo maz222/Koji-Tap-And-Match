@@ -15,6 +15,8 @@ export default class App extends Component {
 	componentDidMount() {
 		window.setAppView = view => { this.setState({ view }); }
 		window.setScore = score => { this.setState({ score }); }
+		let loadingAnimation = document.querySelector('#p5_loading');
+		loadingAnimation.parentNode.removeChild(loadingAnimation);
         //sessionStorage.setItem('isMuted',false);
         //sessionStorage.setItem('userName','');
 	}

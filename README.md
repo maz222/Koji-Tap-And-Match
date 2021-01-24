@@ -1,27 +1,15 @@
-# P5 Scaffold with Leaderboard
+# Tap and Match
+A commissioned game template for [Koji](https://withkoji.com/) based on ([link](https://branded.mini-games.io/upload/bmgstudio/publish/375/1706/3/index.html?servertype=real&refer=sbmg&service_id=dmLU9V48cm&tx_id=12511201&auth_token=HoIOEIllZB&soundplay=1&protocol=https&redirect=branded.mini-games.io/)). Find and tap the items from the bottom bar in the game grid, and compete for the fastest time. Available on Koji [here](https://withkoji.com/~maz2/tap-match) 
 
-This is a great starting project for your P5 app.
+*(Koji has since drastically changed both their business model and website layout, so some features / UI may be outdated).*
 
-It's as bare-bones as I could make it while still including the Leaderboard system and some basic examples.
+Uses **React**, **[P5.js](https://p5js.org/)**, **JavaScript**
 
-## Getting Started
-Main code is in *frontend/app/index.js*
+Users can customize their own version game by using their own
 
-If you're not too familiar with P5.js, [there's some great documentation on their website](https://p5js.org/reference/)!
+    images
+    sounds
+    text
+    game settings (grid size, total number of items, number of items to find, etc)
 
-## Leaderboards
-
-This app has a built-in backend Leaderboard system.
-
-Simplest way to use it:
-
-- Whenever the game ends and the player should submit their score, just call the function *submitScore()*
-- This will take the player to the *Set Score* screen.
-- *submitScore()* automatically takes the *score* variable that I've provided for keeping track of the score. If you wish to change that, you can edit the *submitScore()* function.
-- You can check out or remove Leaderboard entries in the *Database* section in the left bar of the Koji editor.
-- Leaderboard appearance inherits styles from the game, using Title Color and Button Colors.
-
-
-## Contact
-Check out my [other games and apps here](https://withkoji.com/~Svarog1389) and join the [Discord server](https://discord.gg/eQuMJF6) if you're in need of any kind of help or are just feeling chatty :)
-
+via the Koji platform.

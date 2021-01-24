@@ -13,3 +13,5 @@ Users can customize their own version game by using their own
     game settings (grid size, total number of items, number of items to find, etc)
 
 via the Koji platform.
+
+*Works on desktop and mobile devices*
